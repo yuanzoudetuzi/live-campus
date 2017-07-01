@@ -1,0 +1,477 @@
+
+html,body,ul,h3 {
+    padding: 0px;  margin: 0px;
+}
+
+button {
+    margin: 0px;
+}
+body, html {
+    height: 100%;
+    width: 100%;
+    background-color: #f2f2f2;
+}
+#cover_layer {
+    background-color:black;
+    left:0;
+    opacity:0.5;
+    position:absolute;
+    top:0;
+    z-index:200;
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity:0.5;
+}
+
+.sign_box {
+    background-color:#fff;
+    border:2px solid rgba(0,0,0, 0.4);
+    height:520px;
+    left:50%;
+    margin:-260px 0 0 -200px;
+    padding:20px 50px 0px;
+    position:fixed !important; /* 浮动对话框 */
+    position:absolute;
+    top:50%;
+    width:400px;
+    z-index:201;
+    border-radius:5px;
+    display:none;
+}
+
+.sign_box hr {
+    margin: 10px -50px;
+}
+
+.sign_box .login_title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.sign_box input {
+    margin-top: 20px;
+    width:300px;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 34px;
+    font-size: 14px;
+    border: 1px solid darkgrey;
+    border-radius: 3px;
+    outline: medium;
+}
+
+
+.sign_box .ipt_user {
+    background-image: url("../img/ipt_user.png");
+    background-repeat:no-repeat;
+}
+
+.sign_box .ipt_em {
+    background-image: url("../img/ipt_em.png");
+    background-repeat:no-repeat;
+}
+
+
+.sign_box .ipt_pw {
+    background-image: url("../img/ipt_pw.png");
+    background-repeat:no-repeat;
+}
+
+.sign_box .alert_box {
+    margin-top: 20px;
+    display: none;
+    width: 100%;
+    height: auto;
+    padding-top: 6px;
+    padding-left: 10px;
+    background-color: #cc423c;
+    border-radius: 3px;
+
+}
+
+.sign_box .login_button {
+    margin-top: 20px;
+    width:300px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #1caff6;
+    border-radius: 3px;
+    background-color: #4aa8d8;
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-family: "微软雅黑",Arial;
+    text-align: center;
+    color:white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.sign_box .login_title2 {
+   margin-top: 20px;
+}
+
+.sign_box .login_title2 .line1 {
+    width:120px;
+    height:0px;
+    margin-left: -50px;
+    border-bottom:1px solid #eeeeee;
+    float:left;
+}
+
+.sign_box .login_title2 .lg_title2 {
+    float:left;
+    width: 140px;
+    height:5px;
+    line-height:5px;
+    margin: 0px 10px;
+    text-align: center;
+    color:darkgrey;
+}
+
+.sign_box .login_title2 .line2 {
+    width:120px;
+    height:0px;
+    margin-right: -50px;
+    border-bottom:1px solid #eeeeee;
+    float:right;
+}
+
+.sign_box .third_lg_control {
+    margin-top: 50px;
+}
+
+.sign_box .third_lg_control .third_lg {
+    float: left;
+    height: 60px;
+    width: 60px;
+    margin:0px 18px ;
+}
+
+.sign_box .third_lg_control .lg_qq {
+     background-image: url("../img/lg_qq.png");
+}
+
+.sign_box .third_lg_control .lg_wechat {
+    background-image: url("../img/lg_wechat.png");
+}
+.sign_box .third_lg_control .lg_weibo {
+    background-image: url("../img/lg_weibo.png");
+}
+
+#register_success {
+    background-color: #337ab7;
+    border:2px solid #337ab7;
+    color:white;
+    font-size: 16px;
+    font-weight: 600;
+    height:30px;
+    width:150px;
+    line-height: 30px;
+    left:50%;
+    top:50%;
+    margin:-15px 0 0 -75px;
+    text-align: center;
+    position:fixed !important; /* 浮动对话框 */
+    position:absolute;
+    z-index:201;
+    border-radius:3px;
+    display:none;
+}
+
+header nav {
+    line-height: 60px;
+}
+
+.head_nav {
+    font-size: 24px;
+    font-weight: lighter;
+}
+
+.head_nav ul {
+    list-style: none;
+}
+
+.head_nav ul li {
+    float: left;
+}
+
+.head_nav ul li a{
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 0 10px;
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+}
+
+.head_nav  ul li a:hover{
+    text-decoration: none;
+    background-color: orangered;
+    color: white;
+    display: block;
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+.head_nav ul li ul {
+    background-color: white;
+    float: none;
+    position: absolute;
+    text-align: center;
+    display: none;
+    margin-top: 10px;
+}
+
+.head_nav ul li ul li {
+    float: none;
+}
+.head_nav ul li ul li a{
+    margin-top: 10px;
+}
+
+.head_nav ul li ul li a:hover{
+    text-decoration: none;
+    background-color: orangered;
+    color: white;
+    display: block;
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+.head_nav #search_box {
+    float: left;
+    margin: 15px auto 10px 30%;
+    height: 35px;
+    line-height: 40px;
+    background-color: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+}
+
+#search_box #ipt_search {
+    outline:medium;
+    background-color: #e8e8e8;
+    float: left;
+    width: 150px;
+    color: #222;
+    font-size: 12px;
+    overflow: hidden;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 42px 0px 10px;
+    border: 0;
+    outline:medium;
+
+    -webkit-transition: width .55s ease;
+    -moz-transition: width .55s ease;
+    -ms-transition: width .55s ease;
+    -o-transition: width .55s ease;
+    transition: width .55s ease;
+   /* display: inline-block;*/
+}
+
+#search_box #ipt_search:focus {
+    width:200px;
+}
+
+#search_box .search_img {
+   /* display: inline-block;*/
+    outline: medium;
+    background-color: #e8e8e8;
+    border: 0px;
+    float: left;
+    background-image: url("../img/ipt_search.png");
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    cursor: pointer;
+    margin-right: 10px ;
+
+}
+
+.head_nav #login_area {
+    float: right;
+    height:60px;
+    width: 250px;
+}
+
+#login_area a {
+    text-decoration: none;
+    font-size: 12px;
+    color: black;
+    text-align: center;
+    margin-left: 40px;
+    cursor: pointer;
+}
+
+#login_area a:hover {
+    text-decoration: none;
+    color: orangered;
+    cursor: pointer;
+}
+
+#login_area #login_img {
+    display: none;
+    margin-left: 20px;
+}
+
+#login_area span {
+    display: none;
+    font-size: 12px;
+    margin-left: 20px;
+}
+
+#login_area #logout:hover {
+   color: orangered;
+}
+
+#login_area #logout {
+    cursor: pointer;
+}
+
+
+.channel a{
+    display: block;
+    height: 30px;
+    font-size: 15px;
+    color: #c6c6c6;
+    padding-left: 28px;
+    line-height: 30px;
+    margin-bottom: 8px;
+}
+
+.channel i{
+   margin-right: 15px;
+}
+
+.channel a:hover {
+    height: 30px;
+    font-size: 15px;
+    color: white;
+    padding-left: 28px;
+    background-color: #ff6600;
+    text-decoration: none;
+}
+
+.detail_view dl {
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.vertical_bar {
+    margin-left: 10px;
+    height: 15px;
+    width: 6px;
+    overflow: hidden;
+    background-color: #ff6600;
+    display: inline-block;
+    border-radius: 3px;
+}
+
+.detail_view dl dt{
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.detail_view dl dt a{
+    margin-left: 10px;
+    font-size: 15px;
+    color:#c6c6c6;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+
+.detail_view dl dt a:hover{
+   color: #ff6600;
+}
+
+.clear_fixed ul li {
+    list-style: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+    width: 28%;
+    height: 25px;
+    margin:4px 4px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.clear_fixed ul li a{
+    width: 100%;
+    background-color: rgba(39,39,39,0.5);
+    text-align: center;
+    font-size: 12px;
+    color:#c6c6c6;
+    text-decoration: none;
+    float: left;
+}
+
+
+.clear_fixed ul li a:hover{
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+    color: white;
+    background-color:#ff6600;
+    text-decoration: none;
+    float: left;
+}
+
+
+#video_play {
+    position: relative;
+    width: 100%;
+    height: 570px;
+    text-align: center;
+}
+
+/*.abp{
+    position:relative
+}*/
+#video_play #my_comment_stage {
+    width: 730px;
+    height: 400px;
+   /* background-color: #0fa6bc;*/
+    padding: 0px;
+}
+
+#video_play .video_txt {
+    position: absolute;
+    top:460px;
+    left: 0px;
+    width: 730px;
+    height: 50px;
+    margin: 2px 0px ;
+    overflow: hidden;
+    display: inline-block;
+
+   /* padding: 15px;*/
+   /* border: 1px solid black;*/
+}
+
+
+
+.msg_box input {
+    height: 100%;
+    width: 215px;
+    outline: medium;
+    background-color: white;
+}
+
+.msg_send_btn {
+    margin: 0px;
+    width: 35px;
+    height: 100%;
+    border: 0px;
+    color: white;
+    font-size: 12px;
+    font-weight: bolder;
+    background-color: #64b0e0;
+    padding: 0px;
+    outline: medium;
+
+}

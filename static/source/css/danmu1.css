@@ -1,0 +1,199 @@
+/*.abp{position:relative}*/
+ .container {
+    -webkit-transform:matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+    transform:matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+    position:absolute;
+    display:block;
+    overflow:hidden;
+    margin:0;
+    border:0;
+    top:60px;
+    left:0;
+    bottom:0;
+    right:0;
+    z-index:99;
+    zzzztouch-callout:none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+}
+ .container .cmt
+{
+    -webkit-transform:matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+    transform:matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+    -webkit-transform-origin:0 0;
+    -ms-transform-origin:0 0;
+    transform-origin:0 0;
+    position:absolute;
+    padding:3px 0 0;
+    margin:0;
+    color:#fff;
+    font-family:SimHei,SimSun,Heiti,"MS Mincho",Meiryo,"Microsoft YaHei",monospace;
+    font-size:25px;
+    text-decoration:none;
+    text-shadow:-1px 0 black,0 1px black,1px 0 black,0 -1px #000;
+    -webkit-text-size-adjust:none;
+    -ms-text-size-adjust:none;
+    text-size-adjust:none;
+    line-height:100%;
+    letter-spacing:0;
+    word-break:keep-all;
+    white-space:pre
+}
+ .container .cmt.noshadow{
+    text-shadow:none
+}
+ .container .cmt.rshadow{
+    text-shadow:-1px 0 white,0 1px white,1px 0 white,0 -1px #fff
+}
+@font-face{  font-family:"\9ED1\4F53";src:local('SimHei')  }
+@font-face{font-family:"\5B8B\4F53";src:local('SimSun')}
+@font-face{font-family:"\534E\6587\6977\4F53";src:local('SimKai')}
+@font-face{font-family:"\5E7C\5706";src:local('YouYuan')}
+@font-face{font-family:"\5FAE\8F6F\96C5\9ED1";src:local('Microsoft YaHei')}
+
+
+.message_control_panel .emoji {
+    height: 20px;
+    width: 30px;
+    background-image: url("../img/emo.png");
+}
+
+.message_control_panel .msg_color {
+    height: 20px;
+    width: 30px;
+    background-image: url("../img/danmu_color.png");
+}
+
+.message_control_panel .msg_location {
+    height: 20px;
+    width: 30px;
+    background-image: url("../img/danmu_location.png");
+}
+
+.message_control_panel .empty_msg {
+
+}
+
+.message_control_panel .off_msg {
+
+}
+
+.message_control_drop {
+    position: absolute;
+    top:0px;
+    left: 0px;
+}
+.message_control_drop .emoji_drop {
+    display: none;
+
+}
+
+/*.message_control_drop ul {
+    list-style: none;
+}*/
+
+.message_control_drop .msg_color_drop, .msg_location_drop{
+    display: none;
+    position: absolute;
+    top:120px;
+    left: 0px;
+    width: 280px;
+    height: 80px;
+    padding: 8px 6px;
+    background-color: white;
+    -webkit-box-shadow:2px 2px 6px #808080;
+    -moz-box-shadow:2px 2px 6px #808080;
+    box-shadow:2px 2px 6px #808080;
+}
+
+/*.message_control_drop .msg_location_drop {
+    position: absolute;
+    top:120px;
+    left: 0px;
+    width: 280px;
+    height: 80px;
+    padding: 8px 6px;
+    background-color: white;
+    -webkit-box-shadow:2px 2px 6px #808080;
+    -moz-box-shadow:2px 2px 6px #808080;
+    box-shadow:2px 2px 6px #808080;
+}*/
+
+.message_control_drop .danmu_title {
+    color: #4fc1e9;
+    font-size: 16px;
+    font-weight: bolder;
+  /*  margin: 20px 0 12px;*/
+}
+.msg_color_drop .color_select_panel {
+   margin-top: 16px;
+}
+.msg_color_drop .color_select {
+    float: left;
+    height: 18px;
+    width: 18px;
+    margin-left: 20px;
+    overflow: hidden;
+    -webkit-transition: all 50ms linear;
+    -moz-transition: all 50ms linear;
+    transition: all 50ms linear;
+}
+
+.msg_color_drop .color_select:hover {
+    height: 20px;
+    width: 20px;
+}
+
+.color_select_panel .one {
+    background-color: lightcoral;
+}
+
+.color_select_panel .two {
+    background-color: lightblue;
+}
+
+
+.color_select_panel .three {
+    background-color: yellow;
+}
+
+.color_select_panel .four {
+    background-color: lightsalmon;
+}
+
+.color_select_panel .five {
+    background-color: lightgreen;
+}
+
+.color_select_panel .six {
+    background-color: mediumpurple;
+}
+
+.color_select_panel .seven {
+    background-color: #6bdaea;
+}
+
+.msg_location_drop .location_select_panel {
+    margin-top: 16px;
+}
+
+.location_select {
+    float: left;
+    height: 30px;
+    width: 30px;
+    margin-left: 30px;
+    overflow: hidden;
+    -webkit-transition: all 50ms linear;
+    -moz-transition: all 50ms linear;
+    transition: all 50ms linear;
+   /* background-color: black;*/
+}
+
+.location_select:hover {
+    height: 29px;
+    width: 29px;
+    box-shadow: 2px 2px 6px #808080;
+}
+

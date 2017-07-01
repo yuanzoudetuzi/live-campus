@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Campus Live Push</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--bootstrap引入-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="http://www.bootcss.com/p/buttons/css/buttons.css">
+    <!--自定义-->
+    <link rel="stylesheet" href="static/source/css/pushpage.css">
+    <!--web 推流端SDK引入-->
+    <script src="//nos.netease.com/vod163/nePublisher.min.js"></script>
+
+</head>
+<body>
+<div id="cover_layer" onclick="closeSignbox()">
+</div>
+<div id="login_box" class="sign_box">
+    <div class="login_title">登陆</div>
+    <hr>
+    <form>
+        <input class="ipt_user" name="username" placeholder="输入昵称" autocomplete="on" autofocus/>
+        <input class="ipt_pw" name="password" type="password" placeholder="输入密码" autocomplete="on"/>
+        <div class="alert_box" class="alert row_margin">
+            <button type="button" class="close" data-dismiss="alert"></button>
+            <i class="alert_text"></i>
+        </div>
+        <div class="login_button" onclick="login()">登陆</div>
+    </form>
+
+    <div class="login_title2">
+        <div class="line1"></div>
+        <div class="lg_title2">其他登陆方式</div>
+        <div class="line2"></div>
+    </div>
+    <div class="third_lg_control">
+        <div class="third_lg lg_qq"></div>
+        <div class="third_lg lg_wechat"></div>
+        <div class="third_lg lg_weibo"></div>
+    </div>
+</div>
+<div id="register_box" class="sign_box">
+    <div class="login_title">注册</div>
+    <hr>
+    <form>
+        <input class="ipt_user" name="username" placeholder="输入昵称" autocomplete="on" autofocus/>
+        <input class="ipt_em" name="Email" placeholder="输入邮箱" autocomplete="on"/>
+        <input class="ipt_pw" name="password" type="password" placeholder="输入密码"/>
+        <input class="ipt_pw" name="con_password" type="password" placeholder="确认密码"/>
+        <div class="alert_box" class="alert row_margin">
+            <button type="button" class="close" data-dismiss="alert"></button>
+            <i class="alert_text"></i>
+        </div>
+        <div class="login_button" onclick="register()">注册</div>
+    </form>
+
+    <div class="login_title2">
+        <div class="line1"></div>
+        <div class="lg_title2">其他登陆方式</div>
+        <div class="line2"></div>
+    </div>
+    <div class="third_lg_control">
+        <div class="third_lg lg_qq"></div>
+        <div class="third_lg lg_wechat"></div>
+        <div class="third_lg lg_weibo"></div>
+    </div>
+</div>
+<div id="register_success">
+    注册成功，请登录~
+</div>
+<header>
+    <nav class="head_nav">
+        <ul>
+            <li><a>首页</a></li>
+            <li class="menu"><a>校园生活</a></li>
+            <li><a>学习交流</a></li>
+            <li><a>缘来一面</a></li>
+        </ul>
+
+        <div id="login_area">
+            <a href="javascript:showLoginBox()">登陆</a>
+            <a href="javascript:showRegisterBox()">注册</a>
+            <img id="login_img" src="static/source/img/login_img.gif"/>
+            <span id="welcome">欢迎哟~</span>
+            <span id="logout" onclick="loginOut()">登出</span>
+        </div>
+    </nav>
+</header>
+<!--<div id="publish_video">
+
+</div>-->
+<div id="content">
+    <div id="nav_area">
+        <h3>个人中心</h3>
+        <div class="personal_btn">信息</div>
+        <div class="personal_btn">视频</div>
+        <div class="personal_btn">订阅</div>
+        <div class="personal_btn">收藏</div>
+        <div class="personal_btn">道具</div>
+    </div>
+    <div id="publish_area">
+        <div id="publish_video">
+
+        </div>
+        <div id="publish_control">
+            <div class="pub_ctl_btn preview_btn" onclick="startPreview()">预览</div>
+            <div class="pub_ctl_btn publish_btn" onclick="startPublish()">直播</div>
+        </div>
+    </div>
+    <div id="interactive_area">
+        <div class="row interactive_control">
+            <div class="inter_ctl_btn setting_btn" style="margin-left: 15px;">设置</div>
+            <div class="inter_ctl_btn online_btn">在线</div>
+            <div class="inter_ctl_btn gift_btn">礼物</div>
+        </div>
+        <div class="setting_panel">
+            <h5>摄像头:</h5>
+            <select id="cameraSelect"></select>
+            <h5>麦克风:</h5>
+            <select id="microPhoneSelect"></select>
+            <h5>清晰地:</h5>
+            <select id="qualitySelect">
+                <option value="0">流畅（480*360@20）</option>
+                <option value="1">标清（640*480@20）</option>
+                <option value="2">高清（960*540@20）</option>
+            </select>
+            <h5>推流地址:</h5>
+            <input class="u-input" type="text" id="publishUrl">
+        </div>
+    </div>
+</div>
+
+<div class="m-input" style="padding-top: 80px">
+    <span class="u-input-name">摄像头：</span>
+    <!--<select class="u-input" id="cameraSelect">
+    </select>-->
+</div>
+<div class="m-input">
+    <span class="u-input-name">麦克风：</span>
+    <!--  <select class="u-input" id="microPhoneSelect">
+      </select>-->
+</div>
+<div class="m-input">
+    <span class="u-input-name">清晰度：</span>
+    <!-- <select class="u-input" id="qualitySelect">
+         <option value="0">流畅（480*360@20）</option>
+         <option value="1">标清（640*480@20）</option>
+         <option value="2">高清（960*540@20）</option>
+     </select>-->
+</div>
+<div class="m-input">
+    <!--<span class="u-input-name">推流地址：</span>
+    <input class="u-input" type="text" id="publishUrl">-->
+</div>
+<!--<div class="m-input">
+    <button class="button button-primary button-rounded testBtn" id="previewBtn" onclick="startPreview()">预览</button>
+    <button class="button button-primary button-rounded testBtn" id="publishBtn" onclick="startPublish()">开始直播</button>
+    <span class="u-status"></span>
+</div>
+<div id="my-publisher"></div>-->
+</body>
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="static/source/js/login_sign.js"></script>
+<script src="static/source/js/pushpage.js"></script>
+</html>
