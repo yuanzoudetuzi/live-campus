@@ -66,21 +66,29 @@ function showRoomList() {
     console.log('roomList.rid ' + roomList[0].rid);
     var contain = document.getElementById('room_list_contain');
     var i;
-    for(i = 0; i < Math.floor(roomList.length/3); i++ ) {
+    var max_i = Math.ceil(roomList.length/3);
+    var max_j;
+    for(i = 0; i < max_i; i++ ) {
         // console.log('i = ' + i);
          var room_list = document.createElement('div');
          room_list.className = 'row';
-         for(var j = 0; j < 3 ; j++) {
+         /*处理最后一排不满3个房间的情况*/
+         if (i == max_i -1) {
+             max_j = roomList.length - 3*i;
+         }  else {
+             max_j = 3;
+         }
+         for(var j = 0; j < max_j ; j++) {
              // console.log('j = ' + j);
              index = 3*i + j;
              var room = document.createElement('div');
              room.className = 'room_box col-xs-12 col-md-3';
              var img = document.createElement('img');
-             // img.src = 'static/source/img/room_img.png'
              img.src = roomList[index].cover;
              img.onclick = function () {
                  console.log('img.oncilck');
-                 window.location.href = 'http://www.campuslive.cn:8080/room/roominfo?id='+roomList[index].rid + '&type=rid';
+                 // window.location.href = 'http://www.campuslive.cn:8080/room/roominfo?id='+roomList[index].rid + '&type=rid';
+                 window.location.href = 'http://www.campuslive.cn:8080//room/{' + roomList[index].rid + '}';
              };
              var title = document.createElement('h3');
              title.innerText = roomList[index].title;
@@ -100,36 +108,6 @@ function showRoomList() {
          }
          contain.appendChild(room_list);
     }
-    console.log('i = ' + i);
-    var room_list = document.createElement('div');
-    room_list.className = 'row';
-    for (var h = 3*i; h < roomList.length; h++ ) {
-        var room = document.createElement('div');
-        room.className = 'room_box col-xs-12 col-md-3';
-        var img = document.createElement('img');
-        // img.src = 'static/source/img/room_img.png'
-        img.src = roomList[index].cover;
-        img.onclick = function () {
-            console.log('img.oncilck');
-            window.location.href = 'http://www.campuslive.cn:8080/room/roominfo?id='+roomList[index].rid + '&type=rid';
-        };
-        var title = document.createElement('h3');
-        title.innerText = roomList[index].title;
-        var span1 = document.createElement('span');
-        var i1 = document.createElement('i');
-        i1.className = 'play_num';
-        span1.appendChild(i1);
-        var span2 = document.createElement('span');
-        var i2 = document.createElement('i');
-        i2.className = 'danmu_num';
-        span2.appendChild(i2);
-        room.appendChild(img);
-        room.appendChild(title);
-        room.appendChild(span1);
-        room.appendChild(span2);
-        room_list.appendChild(room);
-    }
-    contain.appendChild(room_list);
 }
 function initNavigation() {
     console.log('initNav');
