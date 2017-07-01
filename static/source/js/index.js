@@ -8,25 +8,25 @@ var locationUrl = ["url(static/source/img/danmu_up.png)", "url((static/source/im
     "url((static/source/img/danmu_right.png)", "url((static/source/img/danmu_left.png)"];
 var navImgArray = ['url(static/source/img/home0.png)','url(static/source/img/home1.png)',
     'url(static/source/img/home2.png)','url(static/source/img/home2.png)','url(static/source/img/home3.png)','url(static/source/img/home4.png)',
-    'url(static/source/img/home5.png)','url(static/source/img/home6.png)']
+    'url(static/source/img/home5.png)','url(static/source/img/home6.png)'];
+var roomList;
 $(document).ready(function () {
-
 
     $("#navigation").height(document.body.clientHeight-60);
     $("#video_area").height(document.body.scrollHeight-60);
 
-    $("#msg_color").click(function () {
-        /*console.log("color show");*/
+   /* $("#msg_color").click(function () {
+        /!*console.log("color show");*!/
         $(".msg_color_drop:first").attr("style", "display:block;");
     });
 
     $("#msg_location").click(function () {
         $(".msg_location_drop:first").attr("style", "display:block;");
-    });
+    });*/
 
     initNavigation();
-    initMsgLocation();
-
+   /* initMsgLocation();*/
+    getAllRooms();
   /*  $('#video_area').css('display','none');*/
    /* $("#message_send_btn").click(function () {
         var msg = $("#message_input").val();
@@ -34,6 +34,103 @@ $(document).ready(function () {
     */
 });
 
+function getAllRooms() {
+    $.ajax({
+        type : 'GET',
+        contentType : 'application/json',
+        url : 'http://www.campuslive.cn:8080/room/roomlist?records=12&pnum=1',
+        async: false,
+        processData : false,
+        dataType : 'json',
+
+        success : function (data) {
+            console.log('data.code = ' + data.code);
+            console.log('There are ' + data.ret.list.length + " rooms!" );
+            console.log('First room rid is  ' + data.ret.list[0].rid);
+            roomList = data.ret.list;
+            showRoomList();
+            /*window.location.href="/";*/
+        },
+        error : function () {
+            console.log('Get room list  error...');
+        }
+    })
+}
+
+function showRoomList() {
+    console.log('showRoomList');
+    console.log('roomList are ' + roomList.length);
+    console.log('roomList = ' + roomList.toString());
+    console.log('roomList = ' + roomList);
+    console.log('roomList.cover = ' + roomList[0].cover);
+    console.log('roomList.rid ' + roomList[0].rid);
+    var contain = document.getElementById('room_list_contain');
+    var i;
+    for(i = 0; i < Math.floor(roomList.length/3); i++ ) {
+        // console.log('i = ' + i);
+         var room_list = document.createElement('div');
+         room_list.className = 'row';
+         for(var j = 0; j < 3 ; j++) {
+             // console.log('j = ' + j);
+             index = 3*i + j;
+             var room = document.createElement('div');
+             room.className = 'room_box col-xs-12 col-md-3';
+             var img = document.createElement('img');
+             // img.src = 'static/source/img/room_img.png'
+             img.src = roomList[index].cover;
+             img.onclick = function () {
+                 console.log('img.oncilck');
+                 window.location.href = 'http://www.campuslive.cn:8080/room/roominfo?id='+roomList[index].rid + '&type=rid';
+             };
+             var title = document.createElement('h3');
+             title.innerText = roomList[index].title;
+             var span1 = document.createElement('span');
+             var i1 = document.createElement('i');
+             i1.className = 'play_num';
+             span1.appendChild(i1);
+             var span2 = document.createElement('span');
+             var i2 = document.createElement('i');
+             i2.className = 'danmu_num';
+             span2.appendChild(i2);
+             room.appendChild(img);
+             room.appendChild(title);
+             room.appendChild(span1);
+             room.appendChild(span2);
+             room_list.appendChild(room);
+         }
+         contain.appendChild(room_list);
+    }
+    console.log('i = ' + i);
+    var room_list = document.createElement('div');
+    room_list.className = 'row';
+    for (var h = 3*i; h < roomList.length; h++ ) {
+        var room = document.createElement('div');
+        room.className = 'room_box col-xs-12 col-md-3';
+        var img = document.createElement('img');
+        // img.src = 'static/source/img/room_img.png'
+        img.src = roomList[index].cover;
+        img.onclick = function () {
+            console.log('img.oncilck');
+            window.location.href = 'http://www.campuslive.cn:8080/room/roominfo?id='+roomList[index].rid + '&type=rid';
+        };
+        var title = document.createElement('h3');
+        title.innerText = roomList[index].title;
+        var span1 = document.createElement('span');
+        var i1 = document.createElement('i');
+        i1.className = 'play_num';
+        span1.appendChild(i1);
+        var span2 = document.createElement('span');
+        var i2 = document.createElement('i');
+        i2.className = 'danmu_num';
+        span2.appendChild(i2);
+        room.appendChild(img);
+        room.appendChild(title);
+        room.appendChild(span1);
+        room.appendChild(span2);
+        room_list.appendChild(room);
+    }
+    contain.appendChild(room_list);
+}
 function initNavigation() {
     console.log('initNav');
     var navArray =  document.getElementsByClassName("nav_btn");
@@ -57,8 +154,8 @@ function search () {
     console.log('search = ' +  content);
 }
 
-var myPlayer = neplayer('my_video');
-myPlayer.reset();
+/*var myPlayer = neplayer('my_video');
+myPlayer.reset();*/
 /*function backHome() {
 
     $('#video_cover').css({
@@ -68,7 +165,7 @@ myPlayer.reset();
     $('#room_list_contain').show();
 }*/
 function showRoom(rid) {
-    $('#room_list_contain').hide();
+   /* $('#room_list_contain').hide();
     $('#video_cover').hide();
     $('#video_cover').css({
         height:0,
@@ -79,7 +176,7 @@ function showRoom(rid) {
             {type: "rtmp/flv",src: "rtmp://v4622ebf4.live.126.net/live/1c33a2fbfac74978b10caa7e9ef250f5"},
             {type: "video/x-flv",src: "http://flv4622ebf4.live.126.net/live/1c33a2fbfac74978b10caa7e9ef250f5.flv?netease=flv4622ebf4.live.126.net"},
             {type: "application/x-mpegURL",src: "http://pullhls4622ebf4.live.126.net/live/1c33a2fbfac74978b10caa7e9ef250f5/playlist.m3u8"}
-            /* {src:"//nos.netease.com/vod163/demo.mp4",type:"video/mp4"}*/
+            /!* {src:"//nos.netease.com/vod163/demo.mp4",type:"video/mp4"}*!/
         ]);
     } else if (rid == 2) {
         myPlayer.setDataSource([
@@ -93,6 +190,6 @@ function showRoom(rid) {
             {type: "video/x-flv",src: "http://flv4622ebf4.live.126.net/live/0209abf2449a4fe5ba9fafa90298f4e5.flv?netease=flv4622ebf4.live.126.net"},
             {type: "application/x-mpegURL",src: "http://pullhls4622ebf4.live.126.net/live/0209abf2449a4fe5ba9fafa90298f4e5/playlist.m3u8"}
         ]);
-    }
+    }*/
 }
 
