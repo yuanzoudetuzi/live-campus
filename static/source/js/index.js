@@ -59,11 +59,6 @@ function getAllRooms() {
 
 function showRoomList() {
     console.log('showRoomList');
-    console.log('roomList are ' + roomList.length);
-    console.log('roomList = ' + roomList.toString());
-    console.log('roomList = ' + roomList);
-    console.log('roomList.cover = ' + roomList[0].cover);
-    console.log('roomList.rid ' + roomList[0].rid);
     var contain = document.getElementById('room_list_contain');
     var i;
     var max_i = Math.ceil(roomList.length/3);
@@ -85,11 +80,16 @@ function showRoomList() {
              room.className = 'room_box col-xs-12 col-md-3';
              var img = document.createElement('img');
              img.src = roomList[index].cover;
-             img.onclick = function () {
-                 console.log('img.oncilck');
-                 // window.location.href = 'http://www.campuslive.cn:8080/room/roominfo?id='+roomList[index].rid + '&type=rid';
-                 window.location.href = 'http://www.campuslive.cn:8080//room/{' + roomList[index].rid + '}';
-             };
+             img.onclick = (function (m) {
+                 return function () {
+                     console.log('img.oncilck');
+                     // window.location.href = 'http://www.campuslive.cn:8080/room/roominfo?id='+roomList[index].rid + '&type=rid';
+                     window.location.href = 'http://www.campuslive.cn:8080/room/' + roomList[m].rid;
+                     console.log(' onclick roomList[index].rid = '  +  roomList[m].rid);
+                 }
+             })(index);
+
+             console.log('index = ' + index + '     roomList[index].rid = '  +  roomList[index].rid);
              var title = document.createElement('h3');
              title.innerText = roomList[index].title;
              var span1 = document.createElement('span');

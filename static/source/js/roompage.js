@@ -28,16 +28,46 @@ $(document).ready(function () {
      });*/
 
     initNavigation();
+    /*getRoomInfo();*/
+    var url = window.location.pathname;  //url = /room/rid
+    var rid = url.substr(6);
+    getRoomInfo(rid);
 
 });
 
+function getRoomInfo(rid) {
+    $.ajax({
+        type: 'GET',
+        contentType: 'application/Json',
+        url: 'http://www.campuslive.cn:8080/room/roominfo?id=' + rid + '&type=rid',
+        processData: false,
+        dataType: 'Json',
+        success: function (data) {
 
+             console.log('room push url = ' + data.ret.pushUrl);
+             console.log('room httpPullUrl = ' + data.ret.httpPullUrl);
+             console.log('room hlsPullUrl = ' + data.ret.hlsPullUrl);
+             console.log('room rtmpPullUrl = ' + data.ret.rtmpPullUrl);
+            var myPlayer = neplayer('my_video');
+            myPlayer.reset();
+            myPlayer.setDataSource([
+                {type: "rtmp/flv",src: data.ret.rtmpPullUrl},
+                {type: "video/x-flv",src: data.ret.httpPullUrl},
+                {type: "application/x-mpegURL",src: data.ret.hlsPullUrl},
+                {src:"//nos.netease.com/vod163/demo.mp4",type:"video/mp4"}
+            ]);
+        },
+        error:function () {
+            console.log('Get room information error');
+        }
+    });
+}
 function initNavigation() {
     console.log('initNav');
     var navArray =  document.getElementsByClassName("nav_btn");
     console.log('initNav.length = ' + navArray.length);
     for (var i = 0; i < navArray.length; i++ ) {
-        navArray[i].style.backgroundImage ="url(static/source/img/home"+i+".png)";
+        navArray[i].style.backgroundImage ="url(/static/source/img/home"+i+".png)";
     }
 }
 
@@ -55,15 +85,7 @@ function search () {
     console.log('search = ' +  content);
 }
 
-var myPlayer = neplayer('my_video');
- myPlayer.reset();
 
- myPlayer.setDataSource([
-    {type: "rtmp/flv",src: "rtmp://v4622ebf4.live.126.net/live/1c33a2fbfac74978b10caa7e9ef250f5"},
-    {type: "video/x-flv",src: "http://flv4622ebf4.live.126.net/live/1c33a2fbfac74978b10caa7e9ef250f5.flv?netease=flv4622ebf4.live.126.net"},
-    {type: "application/x-mpegURL",src: "http://pullhls4622ebf4.live.126.net/live/1c33a2fbfac74978b10caa7e9ef250f5/playlist.m3u8"},
-    {src:"//nos.netease.com/vod163/demo.mp4",type:"video/mp4"}
-]);
 /*function backHome() {
 
  $('#video_cover').css({
