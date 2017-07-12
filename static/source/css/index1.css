@@ -111,13 +111,20 @@ img {
 }
 
 main .test {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     color: #bebebe;
+    font-size: 1.5rem;
 }
 
 .test div {
     flex-direction: column;
+    text-align: center;
+}
+
+.test div p:nth-child(1) {
+    font-size:2rem;
 }

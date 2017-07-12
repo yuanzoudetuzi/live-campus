@@ -204,7 +204,7 @@ nav {
     background-color: white;
 }
 
-.wrap_middle {
+.wrap_box {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -212,18 +212,28 @@ nav {
     padding-top: 80px;
 }
 
-.wrap_middle main{
+.wrap_box .wrap_middle{
     display: flex;
     flex: 1;
-    background:white;
+    width: 100%;
+    background-color: white;
+
 }
 
-.room_list_contain {
+.wrap_middle main {
+    width: 75%;
+}
+
+main .room_list_contain {
     width: 100%;
     background:white;
 }
 
-.wrap_middle footer {
+.wrap_middle aside {
+    width: 25%;
+}
+
+.wrap_box footer {
     background-color: #06bcfb;
 }
 

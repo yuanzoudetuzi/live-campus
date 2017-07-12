@@ -209,7 +209,7 @@ nav {
     background-color: white;
 }
 
-.wrap_middle {
+.wrap_box {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -223,7 +223,7 @@ nav {
     min-height: 100%;
 }
 
-.wrap_middle main{
+.wrap_box main{
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -238,7 +238,7 @@ nav {
     background:white;
 }
 
-.wrap_middle footer {
+.wrap_box footer {
     background-color: #06bcfb;
 }
 
