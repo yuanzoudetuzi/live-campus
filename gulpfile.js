@@ -6,7 +6,7 @@ var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var revCollector = require('gulp-rev-collector');                 //路径替换
 var plugins = require('gulp-load-plugins')();
-
+var autoprefixer = require('gulp-autoprefixer');                  //添加前缀
 var paths = {
     src: ['static/source/'],
     dest:['min/']
@@ -22,7 +22,7 @@ gulp.task('minify-js',function () {
         .pipe(gulp.dest('min/min_js'))*/
 });
 gulp.task('minify-css',function () {
-    gulp.src(paths.src + 'css/*.css')
+    gulp.src(paths.src + 'csspre/*.css')
         .pipe(plugins.minifyCss())
        /* .pipe(plugins.rename({suffix: '.min'}))*/
         .pipe(gulp.dest(paths.dest + 'css'));
@@ -42,6 +42,35 @@ gulp.task('minify-img',function () {
         .pipe(gulp.dest(paths.dest + 'img'));
 });
 
+/*自动添加浏览器前缀*/
+
+gulp.task('auto-prefix', function () {
+    gulp.src('static/source/css/*.css')
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false,
+            remove: true
+        }))
+        .pipe(gulp.dest('static/source/csspre'));
+});
+/*gulp.task('auto-prefix', function () {
+   /!* gulp.src(paths.src + 'css/!*.css')
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions', 'Android >= 4.0'],
+            cascade: true, //是否美化属性值 默认：true 像这样：
+            //-webkit-transform: rotate(45deg);
+            //        transform: rotate(45deg);
+            remove:true //是否去掉不必要的前缀 默认：true
+        }))
+        .pipe(gulp.dest(paths.dest + 'css-prefix'));*!/
+    gulp.src('static/source/css/index.css')
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
+        //输出到dist文件夹
+        .pipe(gulp.dest('dist'));
+});*/
 gulp.task('concat', function () {
     gulp.src('js/*.js')  //要合并的文件
         .pipe(plugins.concat('all.js'))  // 合并匹配到的js文件并命名为 "all.js"

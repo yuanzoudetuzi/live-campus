@@ -1,16 +1,7 @@
-
-
-#cover_layer {
-    background-color:black;
-    left:0;
-    opacity:0.5;
-    position:absolute;
-    top:0;
-    z-index:200;
-    filter:alpha(opacity=50);
-    -moz-opacity:0.5;
-    -khtml-opacity:0.5;
+a {
+    transition: all .2s ease .1s; transform: rotate(45deg) translateY(200px);
 }
+
 
 .sign_box {
     background-color:#fff;

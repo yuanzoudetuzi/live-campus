@@ -1,7 +1,6 @@
 {
   "name": "map1",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "gulp": "^3.9.1",
@@ -9,6 +8,7 @@
     "node.js": "^0.0.0"
   },
   "devDependencies": {
+    "gulp-autoprefixer": "^4.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^3.3.0",
     "gulp-livereload": "^3.8.1",
@@ -24,5 +24,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuanzoudetuzi/live-campus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yuanzoudetuzi/live-campus/issues"
+  },
+  "homepage": "https://github.com/yuanzoudetuzi/live-campus#readme",
+  "description": ""
 }

@@ -1,5 +1,4 @@
-/*.abp{position:relative}*/
- .container {
+.container {
     -webkit-transform:matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
     transform:matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
     position:absolute;
@@ -7,7 +6,7 @@
     overflow:hidden;
     margin:0;
     border:0;
-    top:60px;
+    top:0px;
     left:0;
     bottom:0;
     right:0;
@@ -18,12 +17,11 @@
     -ms-user-select:none;
     user-select:none
 }
- .container .cmt
+.container .cmt
 {
     -webkit-transform:matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
     transform:matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
     -webkit-transform-origin:0 0;
-    -ms-transform-origin:0 0;
     transform-origin:0 0;
     position:absolute;
     padding:3px 0 0;
@@ -35,16 +33,17 @@
     text-shadow:-1px 0 black,0 1px black,1px 0 black,0 -1px #000;
     -webkit-text-size-adjust:none;
     -ms-text-size-adjust:none;
+    -moz-text-size-adjust:none;
     text-size-adjust:none;
     line-height:100%;
     letter-spacing:0;
     word-break:keep-all;
     white-space:pre
 }
- .container .cmt.noshadow{
+.container .cmt.noshadow{
     text-shadow:none
 }
- .container .cmt.rshadow{
+.container .cmt.rshadow{
     text-shadow:-1px 0 white,0 1px white,1px 0 white,0 -1px #fff
 }
 @font-face{  font-family:"\9ED1\4F53";src:local('SimHei')  }
@@ -52,8 +51,7 @@
 @font-face{font-family:"\534E\6587\6977\4F53";src:local('SimKai')}
 @font-face{font-family:"\5E7C\5706";src:local('YouYuan')}
 @font-face{font-family:"\5FAE\8F6F\96C5\9ED1";src:local('Microsoft YaHei')}
-
-
+/*
 .message_control_panel .emoji {
     height: 20px;
     width: 30px;
@@ -90,9 +88,9 @@
 
 }
 
-/*.message_control_drop ul {
+!*.message_control_drop ul {
     list-style: none;
-}*/
+}*!
 
 .message_control_drop .msg_color_drop, .msg_location_drop{
     display: none;
@@ -106,7 +104,7 @@
     -webkit-box-shadow:2px 2px 6px #808080;
     -moz-box-shadow:2px 2px 6px #808080;
     box-shadow:2px 2px 6px #808080;
-}
+}*/
 
 /*.message_control_drop .msg_location_drop {
     position: absolute;
@@ -120,15 +118,16 @@
     -moz-box-shadow:2px 2px 6px #808080;
     box-shadow:2px 2px 6px #808080;
 }*/
+/*
 
 .message_control_drop .danmu_title {
     color: #4fc1e9;
     font-size: 16px;
     font-weight: bolder;
-  /*  margin: 20px 0 12px;*/
+    !*  margin: 20px 0 12px;*!
 }
 .msg_color_drop .color_select_panel {
-   margin-top: 16px;
+    margin-top: 16px;
 }
 .msg_color_drop .color_select {
     float: left;
@@ -188,7 +187,7 @@
     -webkit-transition: all 50ms linear;
     -moz-transition: all 50ms linear;
     transition: all 50ms linear;
-   /* background-color: black;*/
+    !* background-color: black;*!
 }
 
 .location_select:hover {
@@ -197,3 +196,37 @@
     box-shadow: 2px 2px 6px #808080;
 }
 
+
+.message_control_panel {
+    width: 95%;
+    height: 12%;
+    margin-left: 12px;
+    overflow: hidden;
+}
+*/
+
+.msg_box input {
+    height: 100%;
+    width: 200px;
+    outline: medium;
+}
+
+.msg_send_btn {
+    display: inline-block;
+    text-align: center;
+    margin: 0px;
+    width: 60px;
+    height: 100%;
+    border: 0px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    padding: 0px;
+    outline: medium;
+    cursor: pointer;
+}
+
+.msg_send_btn:hover{
+    letter-spacing: 6px;
+}
