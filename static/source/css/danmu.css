@@ -1,15 +1,17 @@
 .container {
     -webkit-transform:matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
     transform:matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
-    position:absolute;
+  /*  position:absolute;*/
     display:block;
     overflow:hidden;
     margin:0;
+    top:0;
+    bottom: 0;
     border:0;
-    top:0px;
+   /* top:0px;
     left:0;
     bottom:0;
-    right:0;
+    right:0;*/
     z-index:99;
     zzzztouch-callout:none;
     -webkit-user-select:none;

@@ -86,6 +86,7 @@ img {
 
 }
 
+
 .nav_btn{
     display: flex;
     flex-direction: column;
@@ -109,6 +110,7 @@ img {
     border-bottom: 2px  #06bcfb solid;
 
 }
+
 
 main .test {
     width: 100%;

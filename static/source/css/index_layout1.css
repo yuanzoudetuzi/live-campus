@@ -203,6 +203,8 @@ nav {
     width: 20%;
     height: 500px;
     background-color: white;
+    border-top: 5px  #06bcfb solid;
+    border-radius: 2px;
 }
 
 .wrap_box {
@@ -217,12 +219,13 @@ nav {
     display: flex;
     flex: 1;
     width: 100%;
-    background-color: white;
+
 
 }
 
 .wrap_middle main {
-    width: 75%;
+    width: 70%;
+
 }
 
 main .room_list_contain {
@@ -231,7 +234,9 @@ main .room_list_contain {
 }
 
 .wrap_middle aside {
-    width: 25%;
+    width: 30%;
+    margin-left: 10px;
+    background-color: white;
 }
 
 .wrap_box footer {

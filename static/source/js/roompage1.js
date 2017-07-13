@@ -1,9 +1,7 @@
 /**
- * Created by Administrator on 2017/6/24.
+ * Created by Administrator on 2017/7/13.
  */
-/**
- * Created by Administrator on 2017/4/25.
- */
+
 var locationUrl = ["url(static/source/img/danmu_up.png)", "url((static/source/img/danmu_down.png)",
     "url((static/source/img/danmu_right.png)", "url((static/source/img/danmu_left.png)"];
 var navImgArray = ['url(static/source/img/home0.png)','url(static/source/img/home1.png)',
@@ -12,86 +10,41 @@ var navImgArray = ['url(static/source/img/home0.png)','url(static/source/img/hom
 var roomList;
 $(document).ready(function () {
 
+
     initNavigation();
     hoverNavigation();
-    // getAllRooms();
+    var url = window.location.pathname;  //url = /room/rid
+    var rid = url.substr(6);
+    getRoomInfo(rid);
 
 });
 
-function getAllRooms() {
+function getRoomInfo(rid) {
     $.ajax({
-        type : 'GET',
-        contentType : 'application/json',
-        url : 'http://www.campuslive.cn:8080/room/roomlist?records=12&pnum=1',
-        async: false,
-        processData : false,
-        dataType : 'json',
+        type: 'GET',
+        contentType: 'application/Json',
+        url: 'http://www.campuslive.cn:8080/room/roominfo?id=' + rid + '&type=rid',
+        processData: false,
+        dataType: 'Json',
+        success: function (data) {
 
-        success : function (data) {
-            console.log('data.code = ' + data.code);
-            console.log('There are ' + data.ret.list.length + " rooms!" );
-            console.log('First room rid is  ' + data.ret.list[0].rid);
-            roomList = data.ret.list;
-            showRoomList();
-            /*window.location.href="/";*/
+            console.log('room push url = ' + data.ret.pushUrl);
+            console.log('room httpPullUrl = ' + data.ret.httpPullUrl);
+            console.log('room hlsPullUrl = ' + data.ret.hlsPullUrl);
+            console.log('room rtmpPullUrl = ' + data.ret.rtmpPullUrl);
+            var myPlayer = neplayer('my_video');
+            myPlayer.reset();
+            myPlayer.setDataSource([
+                {type: "rtmp/flv",src: data.ret.rtmpPullUrl},
+                {type: "video/x-flv",src: data.ret.httpPullUrl},
+                {type: "application/x-mpegURL",src: data.ret.hlsPullUrl},
+                {src:"//nos.netease.com/vod163/demo.mp4",type:"video/mp4"}
+            ]);
         },
-        error : function () {
-            console.log('Get room list  error...');
+        error:function () {
+            console.log('Get room information error');
         }
-    })
-}
-
-function showRoomList() {
-    console.log('showRoomList');
-    var contain = document.getElementById('room_list_contain');
-    var i;
-    var max_i = Math.ceil(roomList.length/3);
-    var max_j;
-    for(i = 0; i < max_i; i++ ) {
-        // console.log('i = ' + i);
-        var room_list = document.createElement('div');
-        room_list.className = 'row';
-        /*处理最后一排不满3个房间的情况*/
-        if (i == max_i -1) {
-            max_j = roomList.length - 3*i;
-        }  else {
-            max_j = 3;
-        }
-        for(var j = 0; j < max_j ; j++) {
-            // console.log('j = ' + j);
-            index = 3*i + j;
-            var room = document.createElement('div');
-            room.className = 'room_box col-xs-12 col-md-3';
-            var img = document.createElement('img');
-            img.src = roomList[index].cover;
-            img.onclick = (function (m) {
-                return function () {
-                    console.log('img.oncilck');
-                    // window.location.href = 'http://www.campuslive.cn:8080/room/roominfo?id='+roomList[index].rid + '&type=rid';
-                    window.location.href = 'http://www.campuslive.cn:8080/room/' + roomList[m].rid;
-                    console.log(' onclick roomList[index].rid = '  +  roomList[m].rid);
-                }
-            })(index);
-
-            console.log('index = ' + index + '     roomList[index].rid = '  +  roomList[index].rid);
-            var title = document.createElement('h3');
-            title.innerText = roomList[index].title;
-            var span1 = document.createElement('span');
-            var i1 = document.createElement('i');
-            i1.className = 'play_num';
-            span1.appendChild(i1);
-            var span2 = document.createElement('span');
-            var i2 = document.createElement('i');
-            i2.className = 'danmu_num';
-            span2.appendChild(i2);
-            room.appendChild(img);
-            room.appendChild(title);
-            room.appendChild(span1);
-            room.appendChild(span2);
-            room_list.appendChild(room);
-        }
-        contain.appendChild(room_list);
-    }
+    });
 }
 function initNavigation() {
     console.log('initNav');
@@ -113,8 +66,8 @@ function hoverNavigation() {
     });
 
     $('.nav_btn').mouseout(function () {
-         $(this).css("background-image","url(static/source/img/" + img + ")");
-       /* $(this).css("background-image","url('static/source/img/home2.png')")*/
+        $(this).css("background-image","url(static/source/img/" + img + ")");
+        /* $(this).css("background-image","url('static/source/img/home2.png')")*/
         console.log('out  img = ' + img);
 
     });
@@ -134,6 +87,15 @@ function search () {
     console.log('search = ' +  content);
 }
 
+
+/*function backHome() {
+
+ $('#video_cover').css({
+ height: 480,
+ "z-index":50
+ });
+ $('#room_list_contain').show();
+ }*/
 function showRoom(rid) {
     /* $('#room_list_contain').hide();
      $('#video_cover').hide();

@@ -2,22 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Campus Live</title>
+    <title>直播间</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!--bootstrap引入-->
     <!--   <link rel="stylesheet" href="static/source/css/bootstrap.min.css">-->
-    <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+<!--    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
     <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
      <link rel="stylesheet" type="text/css" href="http://www.bootcss.com/p/buttons/css/buttons.css">-->
 
+    <!--网页 拉流SDK引入-->
+    <link href="//nos.netease.com/vod163/nep.min.css" rel="stylesheet">
+    <script src="//nos.netease.com/vod163/nep.min.js"></script>
+
+    <!--云巴-->
+    <script src="//cdn.bootcss.com/socket.io/1.4.5/socket.io.js"></script>
+    <script src="https://rawgit.com/yunba/yunba-javascript-sdk/master/yunba-js-sdk.js"></script>
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="static/source/css/video-js.min.css">
+    <script src="static/source/js/CommentCoreLibrary.min.js"></script>
     <!--自定义-->
-    <link rel="stylesheet" href="static/source/css/index_layout1.css" />
+    <link rel="stylesheet" href="static/source/css/danmu.css" />
     <link rel="stylesheet" href="static/source/css/index1.css" />
- <!--   <link rel="stylesheet" href="static/source/css/index1_layout.css" />-->
+    <link rel="stylesheet" href="static/source/css/index_layout1.css" />
+    <link rel="stylesheet" href="static/source/css/roompage.css" />
 
 </head>
 <body>
-<div id="cover_layer" onclick="closeSignbox()">
+<!--<div id="cover_layer" onclick="closeSignbox()">
 </div>
 <div id="login_box" class="sign_box">
     <div class="login_title">登陆</div>
@@ -71,7 +82,7 @@
 </div>
 <div id="register_success">
     注册成功，请登录~
-</div>
+</div>-->
 <div class="wrap">
     <header>
         <div class="head_nav">
@@ -82,13 +93,13 @@
                 <input id="ipt_search">
                 <input type="button" class="search_img" onclick="search()">
             </div>
-             <div id="login_area">
-                 <a href="javascript:showLoginBox()">登陆/</a>
-                 <a href="javascript:showRegisterBox()">注册</a>
-              <!--   <img id="login_img" src="static/source/img/login_img.gif"/>-->
-                 <!--<span id="welcome">欢迎哟~</span>
-                 <span id="logout" onclick="loginOut()">登出</span>-->
-             </div>
+            <div id="login_area">
+                <a href="javascript:showLoginBox()">登陆/</a>
+                <a href="javascript:showRegisterBox()">注册</a>
+                <!--   <img id="login_img" src="static/source/img/login_img.gif"/>-->
+                <!--<span id="welcome">欢迎哟~</span>
+                <span id="logout" onclick="loginOut()">登出</span>-->
+            </div>
         </div>
     </header>
     <nav>
@@ -103,48 +114,64 @@
     <div class="wrap_box">
         <div class="wrap_middle">
             <main>
-                <!-- <div id="room_list_contain">
-                     <div class="row" style="margin: 10px 15px">
-                         <div>
-                             <h3>温馨提示</h3>
-                             <p style="margin-top: 10px">为了更好的观影体验，需要亲亲做到以下几点哦~：</p>
-                             <p>1.使用chrome浏览器<p>
-                             <p style="margin-bottom: 20px">2.开启flash,关掉flash的‘先询问’（在浏览器设置的内容设置中）<p>
-                         </div>
-                     </div>
-                 </div>-->
-                <div class="test">
-                    <div class="test_img"></div>
-                    <!--<img src="static/source/img/test.png"/>-->
-                    <div>
-                        <p>额，我们还在内测阶段</p>
-                        <p>部分功能暂未开通</p>
-                        <p>谢谢关注，比哈特</p>
+                <div id="video_area">
+                    <div id="video_play" >
+                        <div id="my_comment_stage" class="container">
+                            <video id="my_video" class="video-js vjs-fluid vjs-big-play-centered" x-webkit-airplay="allow" webkit-playsinline controls poster="static/source/img/post_img.png" preload="auto"   data-setup="{}">
+                                <!-- <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">-->
+                            </video>
+                        </div>
+                        <div class="video_txt">
+                            毕业典礼
+                        </div>
                     </div>
-
                 </div>
             </main>
 
             <aside>
-
+                <div id="video_info">
+                    <div class="personal_info">
+                        <img id="avatar" src="/static/source/img/avatar.png"/>
+                        <div class="per_info">
+                            <div id="nickname">成电TV</div>
+                            <i class="atten_num"></i><span>1.5万</span>
+                            <i class="coll_num"></i><span id="like-number" >500</span>
+                        </div>
+                        <div id="btn-like" class="like_btn"></div>
+                    </div>
+                    <div class="video_desc">
+                        <div id="video_title">毕业典礼</div>
+                        <div class="box">
+                            <span>分类:</span>
+                            <div class="class">校园活动</div>
+                        </div>
+                    </div>
+                    <div class="div"></div>
+                    <div class="present_msg"></div>
+                    <div class="msg_box">
+                        <input id="msg_input" type="text" placeholder="快来发弹幕吧~"/>
+                        <div id="msg_send_btn" class="msg_send_btn">发送</div>
+                    </div>
+                </div>
             </aside>
         </div>
-          <footer>
-              版本信息
-          </footer>
-      </div>
+        <footer>
+            版本信息
+        </footer>
+    </div>
 
 </div>
 
+
 </body>
-<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
 
 <!--网易-->
 <script src="static/source/js/video-js/video.min.js"></script>
 <script src="static/source/js/video-js/videojs-contrib-hls.min.js"></script>
 <!--自定义-->
 <!--<script src="static/source/js/login_sign.js"></script>-->
-<script src="static/source/js/index1.js"></script>
-<!--<script src="static/source/js/main.js"></script>-->
+<script src="static/source/js/roompage1.js"></script>
+<script src="static/source/js/main.js"></script>
 
 </html>
