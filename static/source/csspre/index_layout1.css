@@ -213,29 +213,40 @@ nav {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
     padding-left: 22%;
     padding-top: 80px;
-    height: auto;
-    min-height: 100%;
 }
 
-.wrap_box main{
+.wrap_box .wrap_middle{
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
+    width: 100%;
+    background-color: white;
+
+}
+
+.wrap_middle main {
+    width: 75%;
+}
+
+main .room_list_contain {
+    width: 100%;
     background:white;
 }
 
-.room_list_contain {
-    width: 100%;
-    background:white;
+.wrap_middle aside {
+    width: 25%;
 }
 
 .wrap_box footer {

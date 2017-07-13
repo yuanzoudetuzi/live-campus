@@ -20,7 +20,7 @@ img {
 
 .head_nav .log{
     height: 50px;
-    width: 200px;
+    width: 20vw;
     background-image: url("../img/log.png");
     background-repeat: no-repeat;
 }
@@ -98,7 +98,7 @@ img {
     border-radius: 2px;
     background-repeat: no-repeat;
     background-position: 15% 0%;
-    background-size: 40px 35px;
+    background-size: 3vw 2.5vw;
     transition: all 0.05s ease-in;
 }
 
@@ -117,14 +117,21 @@ main .test {
     align-items: center;
     justify-content: center;
     color: #bebebe;
-    font-size: 1.5rem;
+    font-size: 1.5vw;
 }
 
+.test .test_img {
+    width: 15vw;
+    height: 45vh;
+    background-image: url("../img/test.png");
+    background-size:  contain;
+    background-repeat: no-repeat ;
+}
 .test div {
     flex-direction: column;
     text-align: center;
 }
 
 .test div p:nth-child(1) {
-    font-size:2rem;
+    font-size:2vw;
 }
