@@ -1,3 +1,7 @@
+* {
+    background-repeat: no-repeat;
+}
+
 
 a {
    text-decoration: none;
@@ -22,7 +26,7 @@ img {
     height: 50px;
     width: 20vw;
     background-image: url("../img/log.png");
-    background-repeat: no-repeat;
+   /* background-repeat: no-repeat;*/
 }
 
 .head_nav .home {
@@ -35,7 +39,7 @@ img {
     color: white;
 }
 
-.head_nav #search_box {
+ #search_box {
   /*  float: left;*/
     margin: 15px 20px 10px 10%;
     height: 35px;
@@ -45,7 +49,7 @@ img {
     border-radius: 5px;
 }
 
-#search_box #ipt_search {
+ #ipt_search {
     outline:medium;
     background-color: #e8e8e8;
     float: left;
@@ -63,11 +67,11 @@ img {
     -moz-transition: width .55s ease;
     -ms-transition: width .55s ease;
     -o-transition: width .55s ease;
-    transition: width .55s ease;
+    transition: all .55s ease;
     /* display: inline-block;*/
 }
 
-#search_box #ipt_search:focus {
+#ipt_search:focus {
     width:80px;
 }
 
@@ -97,10 +101,9 @@ img {
     font-size: 1rem;
     text-align: center;
     border-radius: 2px;
-    background-repeat: no-repeat;
     background-position: 15% 0%;
     background-size: 3vw 2.5vw;
-    transition: all 0.05s ease-in;
+    transition: border 0.05s ease-in;
 }
 
 .nav_btn:hover {
@@ -111,6 +114,13 @@ img {
 
 }
 
+nav .QX {
+    width: 100%;
+    height: 8vw;
+    background-image: url("../img/QX1.png");
+    background-position: center;
+    background-size: 8vw 8vw;
+}
 
 main .test {
     width: 100%;
@@ -127,7 +137,6 @@ main .test {
     height: 45vh;
     background-image: url("../img/test.png");
     background-size:  contain;
-    background-repeat: no-repeat ;
 }
 .test div {
     flex-direction: column;

@@ -65,7 +65,11 @@ function login() {
                     $('#login_box input').val('');
                     $("#cover_layer,#login_box").hide();
                     $("#login_area a").hide();
-                    $("#login_img,#welcome,#logout").show();
+                    $(".login_in").show();
+                    sessionStorage.setItem('uid',data.uid);
+                    uid  = data.uid;       //获取用户标识
+                    showAvatar();
+
                 } else if (data.code == '6031') {
                     setElementStatus("alert_box","block");
                     setElementHtml('alert_text', '用户不存在!');
@@ -147,6 +151,44 @@ function register () {
 
 }
 
+function showAvatar() {
+    console.log('avatar uid = ' + uid);
+    var temp = sessionStorage.getItem('uid');
+    console.log('session uid = ' + uid);
+    $.ajax({
+        type: 'GET',
+        contentType : 'application/json',
+        url : 'http://www.campuslive.cn:8080/user/avatar/'+uid,
+        processData : false,
+        dataType : 'json',
+        success:function (data) {
+            if (data.code == 200) {
+                sessionStorage.setItem('avatarUrl',"url(/static/source/img/avatar.png)");
+                $('#login_img').css('background-image',"url(/static/source/img/avatar.png)");
+                // sessionStorage.setItem('avatarUrl',data.url);
+               // $('#login_img').css('background-imag',"url("+data.url +")");
+                console.log('avatar url = ' + data.url);
+                // $('#login_img').css('background-image',"url(" + data.url + ")");
+
+            }  else if (data.code == 6058 ) {   //用户头像不存在
+                 console.log('用户头像不存在');
+                sessionStorage.setItem('avatarUrl',"url(/static/source/img/avatar.png)");
+               /* $('#login_img').css('background-image',"url(static/source/img/avatar.png)");*/
+            }  else if (data.code == 6057) {   //无效的用户头像请求id
+                console.log('无效的用户头像请求id');
+                sessionStorage.setItem('avatarUrl',"url(/static/source/img/avatar.png)");
+              /*  $('#login_img').css('background-image',"url(static/source/img/avatar.png)");*/
+            } else {
+                sessionStorage.setItem('avatarUrl',"url(/static/source/img/avatar.png)");
+              /*  $('#login_img').css('background-image',"url(static/source/img/avatar.png)");*/
+
+            }
+        },
+        error: function () {
+            console.log('Get avatar from  server Error...');
+        }
+    });
+}
 function loginOut () {
     $.ajax({
         type : 'POST',
@@ -155,6 +197,8 @@ function loginOut () {
         processData : false,
         dataType : 'json',
         success : function (data) {
+            sessionStorage.removeItem('uid');
+            sessionStorage.removeItem('avatarUrl');
             console.log(" Sign out Success!");
         },
         error : function () {
@@ -162,7 +206,7 @@ function loginOut () {
         }
     })
     $("#login_area a").show();
-    $("#login_img,#welcome,#logout").hide();
+    $(".login_in").hide();
 }
 
 function validInformation (value, alertTxt) {

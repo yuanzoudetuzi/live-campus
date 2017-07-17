@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Campus Live</title>
+    <title>个人中心</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!--bootstrap引入-->
     <!--   <link rel="stylesheet" href="static/source/css/bootstrap.min.css">-->
@@ -11,9 +11,9 @@
      <link rel="stylesheet" type="text/css" href="http://www.bootcss.com/p/buttons/css/buttons.css">-->
 
     <!--自定义-->
-    <link rel="stylesheet" href="static/source/css/index_layout1.css" />
-    <link rel="stylesheet" href="static/source/css/index1.css" />
-    <!--   <link rel="stylesheet" href="static/source/css/index1_layout.css" />-->
+    <link rel="stylesheet" href="/static/source/css/index_layout1.css" />
+    <link rel="stylesheet" href="/static/source/css/index1.css" />
+    <link rel="stylesheet" href="/static/source/css/user_info.css" />
 
 </head>
 <body>
@@ -85,9 +85,10 @@
             <div id="login_area">
                 <a href="javascript:showLoginBox()">登陆/</a>
                 <a href="javascript:showRegisterBox()">注册</a>
-                <!--   <img id="login_img" src="static/source/img/login_img.gif"/>-->
-                <!--<span id="welcome">欢迎哟~</span>
-                <span id="logout" onclick="loginOut()">登出</span>-->
+                <div class="login_in">
+                    <div id="login_img"></div>
+                    <span id="logout" onclick="loginOut()">登出</span>
+                </div>
             </div>
         </div>
     </header>
@@ -103,7 +104,37 @@
     <div class="wrap_box">
         <div class="wrap_middle">
             <main>
+             <div class="per_box">
+                <h3>个人中心</h3>
+                 <div class="row first">
+                     <div id="personAvatar"></div>
+                     <div class="set_avatar" onclick="setAvatar()">设置头像</div>
+                     <i class="msg_icon"><a>站内信</a></i>
+                 </div>
+                 <div style="margin-left: 4vw">
+                     <div class="row nickname">
+                         <span>昵称：</span>
+                         <div id="nickname"></div>
+                     </div>
+                     <div class="row my_atten">
+                         <span>我的关注:</span>
+                         <div id="atten-num"></div>
+                     </div>
+                     <div class="row my_fans">
+                         <span>我的粉丝</span>
+                         <div id="fans-num"></div>
+                     </div>
+                     <div class="row gender">
+                         <span>性别:</span>
+                         <div id="gender"></div>
+                     </div>
+                     <div class="row age">
+                         <span>生日:</span>
+                         <div id="age"></div>
+                     </div>
+                 </div>
 
+             </div>
             </main>
 
             <aside>
@@ -111,27 +142,6 @@
             </aside>
         </div>
 
-        <!-- <div id="navigation">
-             <div class="nav_btn" title="内测阶段，无法使用，请谅解">返回首页</div>
-             <div class="nav_btn" title="内测阶段，无法使用，请谅解" >校园活动</div>
-             <div class="nav_btn" title="内测阶段，无法使用，请谅解">学习交流</div>
-             <div class="nav_btn" title="内测阶段，无法使用，请谅解">户外旅行</div>
-             <div class="nav_btn" title="内测阶段，无法使用，请谅解">游戏分享</div>
-             <div class="nav_btn" title="内测阶段，无法使用，请谅解">美食推荐</div>
-             <div class="nav_btn" title="内测阶段，无法使用，请谅解">扫码下载</div>
-             <div><img src="static/source/img/QX1.png" style="margin-left: 50px"/></div>
-
-         </div>
-         <div id="room_list_contain">
-             <div class="row" style="margin-top: 10px">
-                 <div>
-                     <h3>温馨提示</h3>
-                     <p style="margin-top: 10px">为了更好的观影体验，需要亲亲做到以下几点哦~：</p>
-                     <p>1.使用chrome浏览器<p>
-                     <p style="margin-bottom: 20px">2.开启flash,关掉flash的‘先询问’（在浏览器设置的内容设置中）<p>
-                 </div>
-             </div>
-         </div>-->
         <footer>
             版本信息
         </footer>
@@ -140,14 +150,15 @@
 </div>
 
 </body>
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-
+<!--<script src="//code.jquery.com/jquery-1.12.4.js"></script>-->
+<script src="/static/source/js/jquery-3.2.1.min.js"></script>
 <!--网易-->
-<script src="static/source/js/video-js/video.min.js"></script>
-<script src="static/source/js/video-js/videojs-contrib-hls.min.js"></script>
+<script src="/static/source/js/video-js/video.min.js"></script>
+<script src="/static/source/js/video-js/videojs-contrib-hls.min.js"></script>
 <!--自定义-->
-<!--<script src="static/source/js/login_sign.js"></script>-->
-<script src="static/source/js/index1.js"></script>
+<script src="/static/source/js/login_sign.js"></script>
+<script src="/static/source/js/index1.js"></script>
+<script src="/static/source/js/user_info.js"></script>
 <!--<script src="static/source/js/main.js"></script>-->
 
 </html>

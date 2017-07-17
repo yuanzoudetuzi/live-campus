@@ -12,11 +12,22 @@ var navImgArray = ['url(static/source/img/home0.png)','url(static/source/img/hom
 var roomList;
 $(document).ready(function () {
 
+    loginArea();
     initNavigation();
     hoverNavigation();
     // getAllRooms();
-
 });
+
+function loginArea() {
+    if(sessionStorage.getItem('uid')) {
+        $("#login_area a").hide();
+        $(".login_in").show();
+        $('#login_img').css('background-image',sessionStorage.getItem('avatarUrl'));
+    } else {
+        $("#login_area a").show();
+        $(".login_in").hide();
+    }
+}
 
 function getAllRooms() {
     $.ajax({
@@ -98,7 +109,7 @@ function initNavigation() {
     var navArray =  document.getElementsByClassName("nav_btn");
     console.log('initNav.length = ' + navArray.length);
     for (var i = 0; i < navArray.length; i++ ) {
-        navArray[i].style.backgroundImage ="url(static/source/img/home"+(i+1)+".png)";
+        navArray[i].style.backgroundImage ="url(/static/source/img/home"+(i+1)+".png)";
     }
 }
 
@@ -108,13 +119,10 @@ function hoverNavigation() {
         img =  $(this).css("background-image").substr(-11,9);  //获得图片名称home0.png
         imgIdx =  $(this).css("background-image").substr(-7,5);  //获得图片标号0.png
         console.log('over img = ' + img);
-        // $(this).css("background-image","url('static/source/img/home0.png')");
-        $(this).css("background-image","url(static/source/img/home_" + imgIdx + ")");
     });
 
     $('.nav_btn').mouseout(function () {
-         $(this).css("background-image","url(static/source/img/" + img + ")");
-       /* $(this).css("background-image","url('static/source/img/home2.png')")*/
+         $(this).css("background-image","url(/static/source/img/" + img + ")");
         console.log('out  img = ' + img);
 
     });
@@ -134,6 +142,9 @@ function search () {
     console.log('search = ' +  content);
 }
 
+function showPerInfo() {
+    window.location.href = 'http://www.campuslive.cn:8080/user/info';
+}
 function showRoom(rid) {
     /* $('#room_list_contain').hide();
      $('#video_cover').hide();

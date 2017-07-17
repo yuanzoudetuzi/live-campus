@@ -1,8 +1,10 @@
-
+html,body,ul,li,ol,h1,h2,h3,h4,h5,h6{
+    padding: 0px;  margin: 0px;
+}
 html,body{
     height: 100%;
     width: 100%;
-    padding: 0px;  margin: 0px;
+
     font-family:Arial,Helvetica,"宋体",sans-serif;
     font-weight: 700;
     font-size: 1.5vw;
@@ -161,6 +163,27 @@ body{
     background-image: url("../img/lg_weibo.png");
 }
 
+.login_in {
+    display: none;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
+#login_img {
+    width: 4.5vw;
+    height: 4.5vw;
+    background: url("../img/avatar.png");
+    float: left;
+    background-size:contain;
+    margin: 0 2vw;
+
+}
+
+#login_img, #logout {
+    cursor: pointer;
+}
+
 #register_success {
     background-color: #337ab7;
     border:2px solid #337ab7;
@@ -201,7 +224,7 @@ nav {
     position: fixed;
     top: 80px;
     width: 20%;
-    height: 500px;
+    height: auto;
     background-color: white;
     border-top: 5px  #06bcfb solid;
     border-radius: 2px;
@@ -215,7 +238,7 @@ nav {
     padding-top: 80px;
 }
 
-.wrap_box .wrap_middle{
+.wrap_middle{
     display: flex;
     flex: 1;
     width: 100%;
@@ -223,23 +246,23 @@ nav {
 
 }
 
-.wrap_middle main {
+main {
     width: 70%;
 
 }
 
-main .room_list_contain {
+.room_list_contain {
     width: 100%;
     background:white;
 }
 
-.wrap_middle aside {
+ aside {
     width: 30%;
     margin-left: 10px;
-    background-color: white;
+    background-color:white;
 }
 
-.wrap_box footer {
+ footer {
     background-color: #06bcfb;
 }
 

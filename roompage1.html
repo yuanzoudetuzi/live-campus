@@ -96,9 +96,10 @@
             <div id="login_area">
                 <a href="javascript:showLoginBox()">登陆/</a>
                 <a href="javascript:showRegisterBox()">注册</a>
-                <!--   <img id="login_img" src="static/source/img/login_img.gif"/>-->
-                <!--<span id="welcome">欢迎哟~</span>
-                <span id="logout" onclick="loginOut()">登出</span>-->
+                <div class="login_in">
+                    <div id="login_img"></div>
+                    <span id="logout" onclick="loginOut()">登出</span>
+                </div>
             </div>
         </div>
     </header>
@@ -109,7 +110,7 @@
         <a class="nav_btn" title="内测阶段，无法使用，请谅解">游戏分享</a>
         <a class="nav_btn" title="内测阶段，无法使用，请谅解">美食推荐</a>
         <a class="nav_btn" title="内测阶段，无法使用，请谅解">扫码下载</a>
-        <a><img src="static/source/img/QX1.png" style="margin-left: 50px"/></a>
+        <div class="QX"></div>
     </nav>
     <div class="wrap_box">
         <div class="wrap_middle">
@@ -131,23 +132,27 @@
             <aside>
                 <div id="video_info">
                     <div class="personal_info">
-                        <img id="avatar" src="/static/source/img/avatar.png"/>
+                        <div id="avatar"></div>
                         <div class="per_info">
                             <div id="nickname">成电TV</div>
                             <i class="atten_num"></i><span>1.5万</span>
                             <i class="coll_num"></i><span id="like-number" >500</span>
                         </div>
-                        <div id="btn-like" class="like_btn"></div>
+                        <div id="btn-atten" class="atten_btn">+关注</div>
                     </div>
                     <div class="video_desc">
                         <div id="video_title">毕业典礼</div>
                         <div class="box">
                             <span>分类:</span>
                             <div class="class">校园活动</div>
+                            <div id="btn-like" class="like_btn"></div>
                         </div>
+
                     </div>
                     <div class="div"></div>
-                    <div class="present_msg"></div>
+                    <div id="present_msg">
+
+                    </div>
                     <div class="msg_box">
                         <input id="msg_input" type="text" placeholder="快来发弹幕吧~"/>
                         <div id="msg_send_btn" class="msg_send_btn">发送</div>

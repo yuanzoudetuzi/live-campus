@@ -80,18 +80,6 @@ $(document).ready(function() {
   window.onresize = init;
   init();
 
- /* videojs("my_video", {
-    "techOrder": ["flash", "html5"],
-    "controls": "false",
-    "autoplay": "true",
-    "preload": "auto"
-  }, function() {
-    var player = this;
-    player.play();
-  });*/
-
-
-
   window.yunba = new Yunba({
     server: 'sock.yunba.io',
     port: 3000,
@@ -238,11 +226,30 @@ $('#btn-like').click(function() {
   );
 });
 
+var danmu;
+var danmu_num = 0;
 function yunba_msg_cb(data) {
+  console.log('yunba_msg-cb');
   // console.log(data);
   if (data.topic === TOPIC_BULLET) {
     // 弹幕
-    cm.send(JSON.parse(data.msg));
+      console.log('Topic:' + data.topic + ',Msg:' + data.msg);
+      console.log('弹幕 = ' +JSON.parse(data.msg).text);
+      danmu = JSON.parse(data.msg).text;
+      if(danmu_num%2==0) {
+          document.getElementById('present_msg').innerHTML += "<div class='talk_box'><div class='talk_img1'></div><div class='talk_txt1'>" + danmu +"</div></div>";
+      } else {
+          document.getElementById('present_msg').innerHTML += "<div class='talk_box'><div class='talk_img2'></div><div class='talk_txt2'>" + danmu +"</div></div>";
+      }
+      document.getElementById('present_msg').scrollTop = document.getElementById('present_msg').scrollHeight;
+      cm.send(JSON.parse(data.msg));
+      danmu_num++;
+      if(danmu_num == 20){
+          document.getElementById('present_msg').innerHTML = '';
+          danmu_num = 0;
+      }
+
+
   } else if (data.topic === TOPIC_LIKE) {
     // 点赞
     var num = parseInt($('#like-number').text()) + 1;
@@ -255,10 +262,11 @@ function yunba_msg_cb(data) {
     $('#online-number').text(num);
   } else if (data.topic === alias) {
     // 初始在线和点赞信息
+
     var msg = JSON.parse(data.msg);
+    console.log('alias like = ' + msg.like + ' 在线 = ' + msg.presence);
     var num = parseInt($('#online-number').text()) + msg.presence;
     $('#online-number').text(num);
-
     num = msg.like;
     $('#like-number').text(num);
   }
@@ -267,7 +275,7 @@ function yunba_msg_cb(data) {
 function yunba_sub_ok() {
   setTimeout(function() {
         $('.msg_box').css("display", "block");
-        $/*('#msg_send_btn').attr("disabled", false);*/
+       /* $('#msg_send_btn').attr("disabled", false);*/
     }, 1000);
 }
 

@@ -209,7 +209,7 @@
 
 .msg_box input {
     height: 100%;
-    width: 200px;
+    width: 80%;
     outline: medium;
 }
 
@@ -217,12 +217,11 @@
     display: inline-block;
     text-align: center;
     margin: 0px;
-    width: 60px;
+    width: 15%;
     height: 100%;
     border: 0px;
     color: white;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 0.8rem;
     letter-spacing: 3px;
     padding: 0px;
     outline: medium;
@@ -230,5 +229,6 @@
 }
 
 .msg_send_btn:hover{
+    display: inline-block;
     letter-spacing: 6px;
 }
