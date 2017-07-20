@@ -27,17 +27,18 @@ body{
     -khtml-opacity:0.5;
 }
 
+
 .sign_box {
-    background-color:#fff;
+    background-color:#a3c6fd;
     border:2px solid rgba(0,0,0, 0.4);
-    height:520px;
+    height:460px;
     left:50%;
     margin:-260px 0 0 -200px;
     padding:20px 50px 0px;
     position:fixed !important; /* 浮动对话框 */
     position:absolute;
     top:50%;
-    width:400px;
+    width:300px;
     z-index:201;
     border-radius:5px;
     display:none;
@@ -46,11 +47,15 @@ body{
 .sign_box hr {
     margin: 10px -50px;
 }
-
 .sign_box .login_title {
-    text-align: center;
-    font-size: 18px;
+    text-align: left;
     font-weight: 700;
+}
+.sign_box .zhuce{
+    color: #34abf7;
+}
+.sign_box .zhuce:hover{
+    color: #1eedf5;
 }
 
 .sign_box input {
@@ -67,8 +72,13 @@ body{
 
 
 .sign_box .ipt_user {
+    width: 70%;
     background-image: url("../img/ipt_user.png");
+    border-radius: 2px;
     background-repeat:no-repeat;
+}
+.sign_box .ipt_user:hover {
+    border:1px solid #0de6fe;
 }
 
 .sign_box .ipt_em {
@@ -78,8 +88,13 @@ body{
 
 
 .sign_box .ipt_pw {
+    width: 70%;
     background-image: url("../img/ipt_pw.png");
+    border-radius: 2px;
     background-repeat:no-repeat;
+}
+.sign_box .ipt_pw:hover {
+    border:1px solid #0de6fe;
 }
 
 .sign_box .alert_box {
@@ -96,23 +111,29 @@ body{
 
 .sign_box .login_button {
     margin-top: 20px;
-    width:300px;
+    width:100%;
     height: 40px;
     line-height: 40px;
-    border: 1px solid #1caff6;
+    border: none;
     border-radius: 3px;
-    background-color: #4aa8d8;
-    font-size: 18px;
-    letter-spacing: 2px;
-    font-family: "微软雅黑",Arial;
+    background-color: #0de6fe;
+    font-size:medium;
+    font-family:"微软雅黑",Arial ;
+    letter-spacing: 3px;
     text-align: center;
     color:white;
     font-weight: 700;
     cursor: pointer;
 }
-
+.sign_box .login_button:hover{
+    background: #38b7f9;
+}
+.sign_box .login_button:focus{
+    outline: none;
+    border: 1px solid  #0cb3d0;
+}
 .sign_box .login_title2 {
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .sign_box .login_title2 .line1 {
@@ -125,12 +146,13 @@ body{
 
 .sign_box .login_title2 .lg_title2 {
     float:left;
+    font-size: medium;
     width: 140px;
     height:5px;
     line-height:5px;
     margin: 0px 10px;
     text-align: center;
-    color:darkgrey;
+    color:#6e6e6e;
 }
 
 .sign_box .login_title2 .line2 {
@@ -143,6 +165,17 @@ body{
 
 .sign_box .third_lg_control {
     margin-top: 50px;
+    margin-bottom: 20px;
+}
+.sign_box .hepanlogin{
+    margin-top: 40 px;
+    font-size: small;
+    width: 100%;
+    height:5px;
+    line-height:5px;
+    margin: 0 auto;
+    text-align: center;
+    color:#839099;
 }
 
 .sign_box .third_lg_control .third_lg {
