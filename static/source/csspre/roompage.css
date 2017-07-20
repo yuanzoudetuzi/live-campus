@@ -23,7 +23,6 @@ video {
     height: 3rem;
     line-height: 3rem;
     border: 1px solid darkgrey;
-    -moz-box-shadow: 1px 1px 1px #eee;
     -webkit-box-shadow: 1px 1px 1px #eee;
     box-shadow: 1px 1px 1px #eee;
     text-align: left;
@@ -39,7 +38,12 @@ video {
 }
 
 #video_info .personal_info {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
     padding: 1rem 1rem;
     /*  align-items: center;*/
@@ -121,8 +125,15 @@ video {
 }
 
 .video_desc .box {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -158,6 +169,7 @@ video {
 
 #present_msg {
     padding: 10px 20px;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
     height: 35%;

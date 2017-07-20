@@ -63,7 +63,7 @@ gulp.task('auto-prefix', function () {
             remove:true //是否去掉不必要的前缀 默认：true
         }))
         .pipe(gulp.dest(paths.dest + 'css-prefix'));*!/
-    gulp.src('static/source/css/index.css')
+    gulp.src('static/source/css/index1css')
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
             cascade: false

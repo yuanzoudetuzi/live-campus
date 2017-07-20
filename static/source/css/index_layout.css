@@ -1,138 +1,272 @@
-html,body,ul,h3 {
+html,body,ul,li,ol,h1,h2,h3,h4,h5,h6{
     padding: 0px;  margin: 0px;
 }
-
-button {
-    margin: 0px;
-}
-body, html {
+html,body{
     height: 100%;
     width: 100%;
-    background-color: #eee;
+
+    font-family:Arial,Helvetica,"宋体",sans-serif;
+    font-weight: 700;
+    font-size: 1.5vw;
 }
-.main_box {
-    position: absolute;
-    top:0px;
-    left: 5%;
-    width:90%;
-    margin-right: 10%;
-    /*background-color: #0e90d2;*/
+
+body{
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f2f2f2;
+}
+#cover_layer {
+    background-color:black;
+    left:0;
+    opacity:0.5;
+    position:absolute;
+    top:0;
+    z-index:200;
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity:0.5;
+}
+
+.sign_box {
+    background-color:#fff;
+    border:2px solid rgba(0,0,0, 0.4);
+    height:520px;
+    left:50%;
+    margin:-260px 0 0 -200px;
+    padding:20px 50px 0px;
+    position:fixed !important; /* 浮动对话框 */
+    position:absolute;
+    top:50%;
+    width:400px;
+    z-index:201;
+    border-radius:5px;
+    display:none;
+}
+
+.sign_box hr {
+    margin: 10px -50px;
+}
+
+.sign_box .login_title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.sign_box input {
+    margin-top: 20px;
+    width:300px;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 34px;
+    font-size: 14px;
+    border: 1px solid darkgrey;
+    border-radius: 3px;
+    outline: medium;
+}
+
+
+.sign_box .ipt_user {
+    background-image: url("../img/ipt_user.png");
+    background-repeat:no-repeat;
+}
+
+.sign_box .ipt_em {
+    background-image: url("../img/ipt_em.png");
+    background-repeat:no-repeat;
+}
+
+
+.sign_box .ipt_pw {
+    background-image: url("../img/ipt_pw.png");
+    background-repeat:no-repeat;
+}
+
+.sign_box .alert_box {
+    margin-top: 20px;
+    display: none;
+    width: 100%;
+    height: auto;
+    padding-top: 6px;
+    padding-left: 10px;
+    background-color: #cc423c;
+    border-radius: 3px;
 
 }
-header {
-    padding-left: 20%;
+
+.sign_box .login_button {
+    margin-top: 20px;
+    width:300px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #1caff6;
+    border-radius: 3px;
+    background-color: #4aa8d8;
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-family: "微软雅黑",Arial;
     text-align: center;
+    color:white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.sign_box .login_title2 {
+    margin-top: 20px;
+}
+
+.sign_box .login_title2 .line1 {
+    width:120px;
+    height:0px;
+    margin-left: -50px;
+    border-bottom:1px solid #eeeeee;
+    float:left;
+}
+
+.sign_box .login_title2 .lg_title2 {
+    float:left;
+    width: 140px;
+    height:5px;
+    line-height:5px;
+    margin: 0px 10px;
+    text-align: center;
+    color:darkgrey;
+}
+
+.sign_box .login_title2 .line2 {
+    width:120px;
+    height:0px;
+    margin-right: -50px;
+    border-bottom:1px solid #eeeeee;
+    float:right;
+}
+
+.sign_box .third_lg_control {
+    margin-top: 50px;
+}
+
+.sign_box .third_lg_control .third_lg {
+    float: left;
+    height: 60px;
+    width: 60px;
+    margin:0px 18px ;
+}
+
+.sign_box .third_lg_control .lg_qq {
+    background-image: url("../img/lg_qq.png");
+}
+
+.sign_box .third_lg_control .lg_wechat {
+    background-image: url("../img/lg_wechat.png");
+}
+.sign_box .third_lg_control .lg_weibo {
+    background-image: url("../img/lg_weibo.png");
+}
+
+.login_in {
+    display: none;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
+#login_img {
+    width: 4.5vw;
+    height: 4.5vw;
+    background: url("../img/avatar.png");
+    float: left;
+    background-size:contain;
+    margin: 0 1.5vw;
+
+}
+
+#login_img, #logout {
+    cursor: pointer;
+}
+
+#register_success {
+    background-color: #337ab7;
+    border:2px solid #337ab7;
+    color:white;
+    font-size: 16px;
+    font-weight: 600;
+    height:30px;
+    width:150px;
+    line-height: 30px;
+    left:50%;
+    top:50%;
+    margin:-15px 0 0 -75px;
+    text-align: center;
+    position:fixed !important; /* 浮动对话框 */
+    position:absolute;
+    z-index:201;
+    border-radius:3px;
+    display:none;
+}
+
+.wrap {
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    height: auto;
+    min-height: 100%;
+}
+
+header {
     position: fixed;
     height: 60px;
-    width:inherit;
-    line-height: 60px;
-    z-index: 100;
-    background-color: white;
-}
-
-#content {
-    position: relative;
-    top:80px;
-    left: 0px;
-    height: 700px;
-}
-
-
-#navigation {
-    position: fixed;
-    top:70px;
-    left:5%;
-    width:16%;
-    z-index: 51;
-    overflow:hidden;
-    background-color: white;
-    /* overflow-x: hidden;*/
-}
-
-
-#room_list_contain {
-    position: absolute;
-    top:30px;
-    left: 20%;
-    width: 80%;
-    height: 480px;
-    padding: 10px 0px 10px 50px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    z-index:51;
-}
-
-
-#video_cover {
-    background-color:white;
-    position:absolute;
-    top:0px;
-    left:20%;
-    z-index:50;
-    filter:alpha(opacity=50);
-    width:80%;
-    height: 480px;
-    border: none;
-}
-
-#video_area {
-    z-index: 49;
-    position: relative;
-    top:0px;
-    left: 18%;
-    padding: 0px 10px 10px 30px;
-    width: 60%;
-    display: inline-block;
-}
-
-
-#video_play {
-    margin-top: 20px;
-    position: relative;
     width: 100%;
-    height: 450px;
-    text-align: center;
     background-color: white;
-
+    z-index: 100;
 }
 
-#video_play #my_comment_stage {
-    width: 630px;
-    height: 400px;
-    padding: 0px;
-
-}
-
-#video_play .video_txt {
-    position: absolute;
-    top:400px;
-    left: 0px;
-    width: 630px;
-    height: 50px;
-    line-height: 50px;
-    overflow: hidden;
-    display: inline-block;
-   /* border: 1px solid darkgrey;*/
-    -moz-box-shadow:1px 1px 1px #eee;
-    -webkit-box-shadow:1px 1px 1px #eee;
-    box-shadow:1px 1px 1px #eee;
-    text-align: left;
-    padding: 0px 10px;
-    border-radius: 3px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-#video_info {
-    position: relative;
-    top:-120px;
-    left: 18%;
-    width: 22%;
+nav {
+    position: fixed;
+    top: 80px;
+    width: 20%;
+    height: auto;
     background-color: white;
-    height: 450px;
-    margin: 2px 0px ;
-    overflow: hidden;
-    display: inline-block;
+    border-top: 5px  #06bcfb solid;
+    border-radius: 2px;
 }
+
+.wrap_box {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding-left: 22%;
+    padding-top: 80px;
+}
+
+.wrap_middle{
+    display: flex;
+    flex: 1;
+    width: 100%;
+
+
+}
+
+main {
+    width: 70%;
+
+}
+
+.room_list_contain {
+    width: 100%;
+    background:white;
+}
+
+ aside {
+    width: 30%;
+    margin-left: 10px;
+    background-color:white;
+}
+
+ footer {
+    background-color: #06bcfb;
+}
+
+
 
 

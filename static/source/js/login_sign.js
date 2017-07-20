@@ -3,6 +3,49 @@
  */
 var requestdata;
 var uid;
+$(document).ready(function () {
+
+    loginArea();
+    initNavigation();
+    hoverNavigation();
+});
+
+function loginArea() {
+    if(sessionStorage.getItem('uid')) {
+        $("#login_area a").hide();
+        $(".login_in").show();
+        $('#login_img').css('background-image',sessionStorage.getItem('avatarUrl'));
+    } else {
+        $("#login_area a").show();
+        $(".login_in").hide();
+    }
+}
+
+function initNavigation() {
+    console.log('initNav');
+    var navArray =  document.getElementsByClassName("nav_btn");
+    console.log('initNav.length = ' + navArray.length);
+    for (var i = 0; i < navArray.length; i++ ) {
+        navArray[i].style.backgroundImage ="url(/static/source/img/home"+(i+1)+".png)";
+    }
+}
+
+function hoverNavigation() {
+    var img, imgIdx;
+    $('.nav_btn').mouseover(function () {
+        img =  $(this).css("background-image").substr(-11,9);  //获得图片名称home0.png
+        imgIdx =  $(this).css("background-image").substr(-7,5);  //获得图片标号0.png
+        console.log('over img = ' + img);
+    });
+
+    $('.nav_btn').mouseout(function () {
+        $(this).css("background-image","url(/static/source/img/" + img + ")");
+        console.log('out  img = ' + img);
+
+    });
+}
+
+
 function showLoginBox () {
     console.log('showLoginBox')
     var bh = $("body").height();
@@ -152,9 +195,6 @@ function register () {
 }
 
 function showAvatar() {
-    console.log('avatar uid = ' + uid);
-    var temp = sessionStorage.getItem('uid');
-    console.log('session uid = ' + uid);
     $.ajax({
         type: 'GET',
         contentType : 'application/json',
@@ -183,6 +223,8 @@ function showAvatar() {
               /*  $('#login_img').css('background-image',"url(static/source/img/avatar.png)");*/
 
             }
+            var url = window.location.href;
+            window.location.href = url;
         },
         error: function () {
             console.log('Get avatar from  server Error...');
@@ -190,24 +232,17 @@ function showAvatar() {
     });
 }
 function loginOut () {
-    $.ajax({
-        type : 'POST',
-        contentType : 'application/json',
-        url : 'http://localhost:80/pass/logout',
-        processData : false,
-        dataType : 'json',
-        success : function (data) {
-            sessionStorage.removeItem('uid');
-            sessionStorage.removeItem('avatarUrl');
-            console.log(" Sign out Success!");
-        },
-        error : function () {
-            console.log('Connect to server Error...');
-        }
-    })
+    sessionStorage.removeItem('uid');
+    sessionStorage.removeItem('avatarUrl');
+    console.log(" Sign out Success!");
     $("#login_area a").show();
     $(".login_in").hide();
 }
+
+function showPerInfo() {
+    window.location.href = 'http://www.campuslive.cn:8080/user/info';
+}
+
 
 function validInformation (value, alertTxt) {
     /* console.log('validInformation')*/

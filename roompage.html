@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!--bootstrap引入-->
     <!--   <link rel="stylesheet" href="static/source/css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
     <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
      <link rel="stylesheet" type="text/css" href="http://www.bootcss.com/p/buttons/css/buttons.css">-->
 
@@ -17,13 +17,15 @@
     <!--云巴-->
     <script src="//cdn.bootcss.com/socket.io/1.4.5/socket.io.js"></script>
     <script src="https://rawgit.com/yunba/yunba-javascript-sdk/master/yunba-js-sdk.js"></script>
-    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <script src="/static/source/js/jquery-3.2.1.min.js"></script>
+  <!--  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>-->
     <link rel="stylesheet" href="/static/source/css/video-js.min.css">
     <script src="/static/source/js/CommentCoreLibrary.min.js"></script>
     <!--自定义-->
     <link rel="stylesheet" href="/static/source/css/danmu.css" />
     <link rel="stylesheet" href="/static/source/css/index.css" />
     <link rel="stylesheet" href="/static/source/css/index_layout.css" />
+    <link rel="stylesheet" href="/static/source/css/roompage.css" />
 
 </head>
 <body>
@@ -82,130 +84,100 @@
 <div id="register_success">
     注册成功，请登录~
 </div>
-<div class="main_box">
+<div class="wrap">
     <header>
-        <nav class="head_nav">
-            <img src="static/source/img/log.png"/>
-            <ul>
-                <li><a>首页</a></li>
-                <li><a>分类</a></li>
-            </ul>
+        <div class="head_nav">
+            <div class="log"></div>
+            <a class="home">首页</a>
+            <a>分类</a>
             <div id="search_box">
                 <input id="ipt_search">
                 <input type="button" class="search_img" onclick="search()">
             </div>
-            <!-- <div id="login_area">
-                 <a href="javascript:showLoginBox()">登陆</a>
-                 <a href="javascript:showRegisterBox()">注册</a>
-                 <img id="login_img" src="static/source/img/login_img.gif"/>
-                 <span id="welcome">欢迎哟~</span>
-                 <span id="logout" onclick="loginOut()">登出</span>
-             </div>-->
-        </nav>
-    </header>
-    <div id="content">
-        <div id="navigation">
-            <div class="nav_btn" title="内测阶段，无法使用，请谅解">返回首页</div>
-            <div class="nav_btn" title="内测阶段，无法使用，请谅解" >校园活动</div>
-            <div class="nav_btn" title="内测阶段，无法使用，请谅解">学习交流</div>
-            <div class="nav_btn" title="内测阶段，无法使用，请谅解">户外旅行</div>
-            <div class="nav_btn" title="内测阶段，无法使用，请谅解">游戏分享</div>
-            <div class="nav_btn" title="内测阶段，无法使用，请谅解">美食推荐</div>
-            <div class="nav_btn" title="内测阶段，无法使用，请谅解">扫码下载</div>
-            <div><img src="static/source/img/QX1.png" style="margin-left: 50px"/></div>
+            <div id="login_area">
+                <a href="javascript:showLoginBox()">登陆/</a>
+                <a href="javascript:showRegisterBox()">注册</a>
+                <div class="login_in">
+                    <div id="login_img" onclick="showPerInfo()"></div>
+                    <span id="logout" onclick="loginOut()">登出</span>
+                </div>
 
+            </div>
         </div>
-         <div id="video_area">
-             <div id="video_play" >
-                 <div id="my_comment_stage" class="container">
-                     <video id="my_video" class="video-js vjs-fluid vjs-big-play-centered" x-webkit-airplay="allow" webkit-playsinline controls poster="static/source/img/post_img.png" preload="auto" width="630" height="400"  data-setup="{}">
-                        <!-- <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">-->
-                     </video>
-                 </div>
-                 <div class="video_txt">
-                     毕业典礼
-                 </div>
-             </div>
-         </div>
-         <div id="video_info">
-             <div class="personal_info">
-                  <img id="avatar" src="/static/source/img/avatar.png"/>
-                  <div class="per_info">
-                      <div id="nickname">成电TV</div>
-                      <i class="atten_num"></i><span>1.5万</span>
-                      <i class="coll_num"></i><span id="like-number" >500</span>
-                  </div>
-                 <div id="btn-like" class="like_btn"></div>
-             </div>
-             <div class="video_desc">
-                 <div id="video_title">毕业典礼</div>
-                 <div class="box">
-                     <span>分类:</span>
-                     <div class="class">校园活动</div>
-                 </div>
-             </div>
-             <div class="div"></div>
-             <div class="present_msg"></div>
-             <div class="msg_box">
-                 <input id="msg_input" type="text" placeholder="快来发弹幕吧~"/>
-                 <div id="msg_send_btn" class="msg_send_btn">发送</div>
-             </div>
-             <!--<div class="message_control_drop">
-                 <div class="emoji_drop">
-                     <ul>
-                         <li>(｡◕∀◕｡)</li>
-                         <li>(｡◕∀◕｡)</li>
-                         <li></li>
-                         <li></li>
-                         <li></li>
-                     </ul>
-                 </div>
-                 <div class="msg_color_drop">
-                     <h3 class="danmu_title">弹幕颜色</h3>
-                     <div class="color_select_panel">
-                         <div class="color_select one"></div>
-                         <div class="color_select two"></div>
-                         <div class="color_select three"></div>
-                         <div class="color_select four"></div>
-                         <div class="color_select five"></div>
-                         <div class="color_select six"></div>
-                         <div class="color_select seven"></div>
-                     </div>
-                 </div>
-                 <div class="msg_location_drop">
-                     <h3 class="danmu_title">弹幕位置</h3>
-                     <div class="location_select_panel">
-                         <div class="location_select top"></div>
-                         <div class="location_select bottom"></div>
-                         <div class="location_select right"></div>
-                         <div class="location_select left"></div>
-                     </div>
-                 </div>
-             </div>-->
-             <!-- <div class="message_control_panel" style="display: block">
-                  <div class="btn emoji" title="表情包" ></div>
-                  <div id="msg_color" class="btn msg_color" title="弹幕颜色"></div>
-                  <div id="msg_location" class="btn msg_location" title="弹幕位置"></div>
-                  <div class="btn empty_msg" title="清空弹幕"><i class="fa fa-trash-o" aria-hidden="true"></i></div>
-                  <div class="btn off_msg" title="关闭弹幕"><i class="fa fa-toggle-off" aria-hidden="true"></i></div>
-              </div>-->
- <!--
-             <div class="message_input">
-                 <input id="message_input" type="text"/>
-                 <div id="message_send_btn" class="message_send_btn">发送</div>
-             </div>-->
-         </div>
+    </header>
+    <nav>
+        <a class="nav_btn" title="内测阶段，无法使用，请谅解" >校园活动</a>
+        <a class="nav_btn" title="内测阶段，无法使用，请谅解">学习交流</a>
+        <a class="nav_btn" title="内测阶段，无法使用，请谅解">户外旅行</a>
+        <a class="nav_btn" title="内测阶段，无法使用，请谅解">游戏分享</a>
+        <a class="nav_btn" title="内测阶段，无法使用，请谅解">美食推荐</a>
+        <a class="nav_btn" title="内测阶段，无法使用，请谅解">扫码下载</a>
+        <div class="QX"></div>
+    </nav>
+    <div class="wrap_box">
+        <div class="wrap_middle">
+            <main>
+                <div id="video_area">
+                    <div id="video_play" >
+                        <div id="my_comment_stage" class="container">
+                            <video id="my_video" class="video-js vjs-fluid vjs-big-play-centered" x-webkit-airplay="allow" webkit-playsinline controls poster="/static/source/img/post_img.png" preload="auto" >
+                                <!-- <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">-->
+                            </video>
+                        </div>
+                        <div class="video_txt">
+                            毕业典礼
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <aside>
+                <div id="video_info">
+                    <div class="personal_info">
+                        <div id="avatar"></div>
+                        <div class="per_info">
+                            <div id="nickname"></div>
+                            <i class="atten_num"></i><span>1.5万</span>
+                            <i class="coll_num"></i><span id="like-number" >500</span>
+                        </div>
+                        <div id="btn-atten" class="atten_btn" onclick="attention()">+关注</div>
+                    </div>
+                    <div class="video_desc">
+                        <div id="video_title">毕业典礼</div>
+                        <div class="box">
+                            <span>分类:</span>
+                            <div class="class">校园活动</div>
+                            <div id="btn-like" class="like_btn"></div>
+                        </div>
+
+                    </div>
+                    <div class="div"></div>
+                    <div id="present_msg">
+
+                    </div>
+                    <div class="msg_box">
+                        <input id="msg_input" type="text" placeholder="快来发弹幕吧~"/>
+                        <div id="msg_send_btn" class="msg_send_btn">发送</div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <footer>
+            版本信息
+        </footer>
     </div>
+
 </div>
 
-</body>
-<!--<script src="//code.jquery.com/jquery-1.12.4.js"></script>-->
 
+</body>
+
+<!--<script src="/static/source/js/jquery-3.2.1.min.js"></script>-->
 <!--网易-->
 <script src="/static/source/js/video-js/video.min.js"></script>
 <script src="/static/source/js/video-js/videojs-contrib-hls.min.js"></script>
 <!--自定义-->
-<!--<script src="static/source/js/login_sign.js"></script>-->
+<script src="/static/source/js/login_sign.js"></script>
 <script src="/static/source/js/roompage.js"></script>
 <script src="/static/source/js/main.js"></script>
 

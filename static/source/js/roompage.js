@@ -1,36 +1,20 @@
 /**
- * Created by Administrator on 2017/7/1.
+ * Created by Administrator on 2017/7/13.
  */
-/**
- * Created by Administrator on 2017/6/24.
- */
-/**
- * Created by Administrator on 2017/4/25.
- */
+
 var locationUrl = ["url(static/source/img/danmu_up.png)", "url((static/source/img/danmu_down.png)",
     "url((static/source/img/danmu_right.png)", "url((static/source/img/danmu_left.png)"];
-var navImgArray = ['url(static/source/img/home0.png)','url(static/source/img/home1.png)',
-    'url(static/source/img/home2.png)','url(static/source/img/home2.png)','url(static/source/img/home3.png)','url(static/source/img/home4.png)',
-    'url(static/source/img/home5.png)','url(static/source/img/home6.png)'];
+var navImgArray = ['url(static/source/img/home0.png)', 'url(static/source/img/home1.png)',
+    'url(static/source/img/home2.png)', 'url(static/source/img/home2.png)', 'url(static/source/img/home3.png)', 'url(static/source/img/home4.png)',
+    'url(static/source/img/home5.png)', 'url(static/source/img/home6.png)'];
 var roomList;
+var rid,aid,uid, isAtten,requestdata;
 $(document).ready(function () {
-
-    $("#navigation").height(document.body.clientHeight-60);
-    $("#video_area").height(document.body.scrollHeight-60);
-
-    /* $("#msg_color").click(function () {
-     /!*console.log("color show");*!/
-     $(".msg_color_drop:first").attr("style", "display:block;");
-     });
-
-     $("#msg_location").click(function () {
-     $(".msg_location_drop:first").attr("style", "display:block;");
-     });*/
-
-    initNavigation();
-    /*getRoomInfo();*/
+    /* initNavigation();
+     hoverNavigation();*/
     var url = window.location.pathname;  //url = /room/rid
-    var rid = url.substr(6);
+    rid = url.substr(6);
+    console.log('url = ' + url + 'rid = ' + rid);
     getRoomInfo(rid);
 
 });
@@ -42,58 +26,164 @@ function getRoomInfo(rid) {
         url: 'http://www.campuslive.cn:8080/room/roominfo?id=' + rid + '&type=rid',
         processData: false,
         dataType: 'Json',
+        async: false,
         success: function (data) {
 
-             console.log('room push url = ' + data.ret.pushUrl);
-             console.log('room httpPullUrl = ' + data.ret.httpPullUrl);
-             console.log('room hlsPullUrl = ' + data.ret.hlsPullUrl);
-             console.log('room rtmpPullUrl = ' + data.ret.rtmpPullUrl);
+            console.log('room push url = ' + data.ret.pushUrl);
+            console.log('room httpPullUrl = ' + data.ret.httpPullUrl);
+            console.log('room hlsPullUrl = ' + data.ret.hlsPullUrl);
+            console.log('room rtmpPullUrl = ' + data.ret.rtmpPullUrl);
+            console.log('room cover = ' + data.ret.cover);
+            document.getElementById("my_video").poster = data.ret.cover;
+            $('#nickname').html(data.ret.username);
+            aid = data.ret.uid;
+            showAnchorAvatar(aid);
+            if (sessionStorage.getItem('uid')) {
+                uid = sessionStorage.getItem('uid');
+                isAttention();
+            } else {
+                $('#btn-atten').html('+关注');
+            }
+
             var myPlayer = neplayer('my_video');
             myPlayer.reset();
             myPlayer.setDataSource([
-                {type: "rtmp/flv",src: data.ret.rtmpPullUrl},
-                {type: "video/x-flv",src: data.ret.httpPullUrl},
-                {type: "application/x-mpegURL",src: data.ret.hlsPullUrl},
-                {src:"//nos.netease.com/vod163/demo.mp4",type:"video/mp4"}
+                {type: "rtmp/flv", src: data.ret.rtmpPullUrl},
+                {type: "video/x-flv", src: data.ret.httpPullUrl},
+                {type: "application/x-mpegURL", src: data.ret.hlsPullUrl},
+                {src: "//nos.netease.com/vod163/demo.mp4", type: "video/mp4"}
             ]);
         },
-        error:function () {
+        error: function () {
             console.log('Get room information error');
         }
     });
 }
-function initNavigation() {
-    console.log('initNav');
-    var navArray =  document.getElementsByClassName("nav_btn");
-    console.log('initNav.length = ' + navArray.length);
-    for (var i = 0; i < navArray.length; i++ ) {
-        navArray[i].style.backgroundImage ="url(/static/source/img/home"+i+".png)";
-    }
+
+function showAnchorAvatar(aid) {
+    $.ajax({
+        type: 'GET',
+        contentType: 'application/Json',
+        url: 'http://www.campuslive.cn:8080/user/avatar/' + aid,
+        processData: false,
+        dataType: 'Json',
+        /* async:false,*/
+        success: function (data) {
+
+            if (data.code == 200) {
+                $('#avatar').css('background-image', data.url);
+                console.log('anchor avatar = ' + data.url);
+            } else if (data.code == 6058) {   //用户头像不存在
+                console.log('用户头像不存在');
+                $('#avatar').css('background-image', 'url(/static/source/img/avatar.png)');
+            } else if (data.code == 6057) {   //无效的用户头像请求id
+                console.log('无效的用户头像请求id');
+                $('#avatar').css('background-image', 'url(/static/source/img/avatar.png)');
+            } else {
+                $('#avatar').css('background-image', 'url(/static/source/img/avatar.png)');
+            }
+        },
+        error: function () {
+            console.log('Get  information error');
+        }
+    });
 }
 
-function initMsgLocation() {
-    var locationrArray =  document.getElementsByClassName("location_select");
-    console.log('locationrArray.length = ' + locationrArray.length);
-    for (var i = 0; i < locationrArray.length; i++ ) {
-        console.log('i = ' + i);
-        locationrArray[i].style.backgroundImage = locationUrl[i];
-    }
+function isAttention() {
+    $.ajax({
+            type: 'GET',
+            contentType: 'application/Json',
+            url: 'http://www.campuslive.cn:8080/user/subscriptionstatus?uid=' + uid + '&aid=' + aid,
+            processData: false,
+            dataType: 'Json',
+            /* async:false,*/
+            success: function (data) {
+               if(data.code == 6046) {
+                   console.log('查询关注信息失败');
+               } else {
+                   if(data.ret.status == 1) {  //已关注
+                       $('#btn-atten').html('取消关注');
+                       isAtten = true;
+                   } else {
+                       $('#btn-atten').html('+关注');
+                       isAtten = false;
+                   }
+               }
+            },
+            error: function () {
+                console.log('Get  attention information error');
+            }
+        });
 }
 
-function search () {
+function search() {
     var content = $('#ipt_search').val();
-    console.log('search = ' +  content);
+    console.log('search = ' + content);
 }
 
+function attention() {
+    if (!sessionStorage.getItem('uid')) {
+        alert('请先登陆');
+    } else {
+        uid = sessionStorage.getItem('uid');
+        if(isAtten) {
+           alert('取消关注');
+            console.log('取消关注');
+            $.post("http://www.campuslive.cn:8080/user/unsubscribeanchor",
+                {
+                    uid:uid,
+                    aid:aid
+                },
+                function(data,status){
+                  /*  var response = JSON.stringify(data);*/
+                  /*  console.log('关注 code = ' + response.code );*/
+                    if (status == 'success') {
+                        console.log('取消关注 code1 = ' + data.code );
+                        if(data.code == 200){
+                            alert('取消关注成功');
+                            console.log("取消关注成功");
+                            $('#btn-atten').html('+关注');
+                        } else if (data.code == 6038) {
+                            console.log('该用户尚未关注该主播');
+                        } else {
+                            console.log('取消关注失败');
+                        }
+                    }  else {
+                        console.log('cancel attention is ' + status);
+                    }
 
-/*function backHome() {
+                   /* alert("Data: " + data + "\nStatus: " + status);*/
+                });
+        } else {
+           /* alert('关注');*/
+            console.log('关注');
+            $.post("http://www.campuslive.cn:8080/user/subscribeanchor",
+                {
+                    uid:uid,
+                    aid:aid
+                },
+                function(data,status){
+                   if (status == 'success') {
+                       console.log('关注 code1 = ' + data.code );
+                       if(data.code == 200){
+                           alert('关注成功');
+                           console.log("关注成功");
+                           $('#btn-atten').html('取消关注');
 
- $('#video_cover').css({
- height: 480,
- "z-index":50
- });
- $('#room_list_contain').show();
- }*/
+                       } else if (data.code == 6036) {
+                           console.log('该用户已关注该主播');
+                       } else  {
+                           console.log('关注失败');
+                       }
+                   }  else {
+                       console.log('attention is ' + status);
+                   }
+
+                   /* alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);*/
+                });
+        }
+    }
+}
 function showRoom(rid) {
     /* $('#room_list_contain').hide();
      $('#video_cover').hide();

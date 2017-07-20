@@ -1,0 +1,73 @@
+h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+    padding: 0;
+}
+.per_box {
+    /*width: calc(100% - 4rem);*/
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: auto;
+    background-color: white;
+    padding: 1rem 2rem;
+    color: #d1d1d1;
+
+}
+
+.per_box h3 {
+    color: #d1d1d1;
+    font-size: 1.5rem;
+}
+
+.per_box span {
+    color: #06bcfb;
+    margin-right: 1rem;
+}
+
+.per_box .row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.first #personAvatar {
+    width: 8vw;
+    height: 8vw;
+    margin-left: 2rem;
+    background: url("../img/avatar.png");
+    background-size: cover;
+}
+
+.first .set_avatar {
+    color: #06bcfb;
+    border: 2px #06bcfb solid;
+    cursor: pointer;
+}
+
+.first .msg_icon {
+
+}
+
+.first a {
+    color:#d1d1d1;
+    cursor: pointer;
+}
+
+ #nickname {
+    color: black;
+}
+
+ #gender {
+     width: 3vw;
+     text-align: center;
+     border: 1px #d1d1d1 solid;
+     border-radius: 10%;
+ }
