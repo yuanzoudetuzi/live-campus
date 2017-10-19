@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,8 @@
     <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
     <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
      <link rel="stylesheet" type="text/css" href="http://www.bootcss.com/p/buttons/css/buttons.css">-->
-
+   <!--JQuery样式-->
+   <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
     <!--自定义-->
     <link rel="stylesheet" href="/static/source/css/index_layout.css" />
     <link rel="stylesheet" href="/static/source/css/index.css" />
@@ -17,7 +18,7 @@
 
 </head>
 <body>
-<div id="cover_layer" onclick="closeSignbox()">
+<div id="cover_layer" onclick="closeBox()">
 </div>
 <div id="login_box" class="sign_box">
     <table width="100%">
@@ -31,13 +32,12 @@
     </table>
 
     <form method="post" action="">
-
         <div>
             <div>
                 <br>
-                <span>学 号</span>
+                <span>昵称</span>
                 <span>
-            <input class="ipt_user" name="username" placeholder="请输入学号" autocomplete="on" autofocus=""/>
+            <input class="ipt_user" name="username" placeholder="请输入用户名" autocomplete="on" autofocus=""/>
             </span>
             </div>
             <br>
@@ -107,6 +107,38 @@
 <div id="register_success">
     注册成功，请登录~
 </div>
+
+
+<div id="avatar_box" class="avatar_box">
+    <a href="#" class="change">
+         选择照片
+        <input id="temp_avatar_file" class="file"  type="file" accept="image/png,image/gif,image/jpeg" name="file" />
+    </a>
+    <div class="des">仅支持JPG,GIF,PNG格式;文件小于5M</div>
+    <div class="row1">
+        <div id="label">
+            <canvas id="get_image"></canvas>
+            <p>
+                <canvas id="cover_box"></canvas>
+                <canvas id="edit_pic"></canvas>
+            </p>
+        </div>
+        <div>
+            <span id="show_edit"></span>
+        </div>
+        <div>
+            <span id="show_pic"><img src=""></span>
+        </div>
+    </div>
+    <hr>
+    <div class="row2">
+        <div class="btn btn_cancel" onclick="closeBox()">取消</div>
+        <div class="btn btn_save" id="save_button">保存</div>
+    </div>
+
+
+
+</div>
 <div class="wrap">
     <header>
         <div class="head_nav">
@@ -139,36 +171,57 @@
     <div class="wrap_box">
         <div class="wrap_middle">
             <main>
+            <div id="update_success">
+                更新成功
+            </div>
              <div class="per_box">
                 <h3>个人中心</h3>
                  <div class="row first">
                      <div id="personAvatar"></div>
-                     <div class="set_avatar" onclick="setAvatar()">设置头像</div>
+                     <div class="set_avatar" onclick="showAvatarBox()">设置头像</div>
                      <i class="msg_icon"><a>站内信</a></i>
                  </div>
-                 <div style="margin-left: 4vw">
+                 <div class="per_info" >
                      <div class="row nickname">
                          <span>昵称：</span>
-                         <div id="nickname"></div>
+                         <div class="width" id="nickname"></div>
+                       <!--  <input id="nickname" disabled>-->
                      </div>
                      <div class="row my_atten">
                          <span>我的关注:</span>
-                         <div id="atten-num"></div>
+                         <div class="width" id="atten-num"></div>
+                         <!--<input id="atten-num" disabled>-->
                      </div>
                      <div class="row my_fans">
                          <span>我的粉丝</span>
-                         <div id="fans-num"></div>
+                         <div class="width" id="fans-num"></div>
                      </div>
                      <div class="row gender">
                          <span>性别:</span>
-                         <div id="gender"></div>
+                        <!-- <input class="width" id="gender">-->
+                         <select class="width" id="gender" style="padding-left:20.5%">
+                             <option value="woman">女</option>
+                             <option value="man">男</option>
+                             <option value="unknown">保密</option>
+                         </select>
                      </div>
                      <div class="row age">
-                         <span>生日:</span>
-                         <div id="age"></div>
+                         <span>年龄:</span>
+                         <!--<div id="age"></div>-->
+                         <input class="width" id="age">
+                     </div>
+                     <div class="row telephone">
+                         <span>电话:</span>
+                        <!-- <div id="telephone"></div>-->
+                         <input class="width" id="telephone">
+                     </div>
+                     <div class="row email">
+                         <span>邮箱</span>
+                         <!--<div id="email"></div>-->
+                         <input class="width" id="email">
                      </div>
                  </div>
-
+                 <div class="btn_submit" onclick="updateInfo()">修改</div>
              </div>
             </main>
 

@@ -35,13 +35,10 @@ function hoverNavigation() {
     $('.nav_btn').mouseover(function () {
         img =  $(this).css("background-image").substr(-11,9);  //获得图片名称home0.png
         imgIdx =  $(this).css("background-image").substr(-7,5);  //获得图片标号0.png
-        console.log('over img = ' + img);
     });
 
     $('.nav_btn').mouseout(function () {
         $(this).css("background-image","url(/static/source/img/" + img + ")");
-        console.log('out  img = ' + img);
-
     });
 }
 
@@ -69,12 +66,13 @@ function showRegisterBox() {
     $("#register_box").show();
 }
 
-function closeSignbox() {
+function closeBox() {
     setElementStatus("alert_box","none");
     $('#login_box input').val('');
     $('#register_box input').val('');
     $("#login_box").hide();
     $("#register_box").hide();
+    $("#avatar_box").hide();
     $("#cover_layer").css({
         height:0,
         width:0,
@@ -84,7 +82,9 @@ function closeSignbox() {
 function login() {
     var username =  $('#login_box .ipt_user').val();
     var password = $('#login_box .ipt_pw').val();
-    if (validInformation(username, '昵称') == false) {
+    if (
+
+        validInformation(username, '昵称') == false) {
         document.getElementsByName('username')[0].focus();
     }
     else if ( validInformation(password, '密码') == false) {
@@ -138,15 +138,11 @@ function login() {
 
 function register () {
     var username = $('#register_box .ipt_user').val()
-    var email =  $('#register_box .ipt_em').val();
     var password = $('#register_box .ipt_pw:eq(0)').val();
     var confirmPW = $("input[name='con_password']").val();
     /* console.log(confirmPW + ': confirmPW')*/
     if  (validInformation(username,'昵称') == false) {
         document.getElementsByName('username')[0].focus();
-    } else if ( validInformation(email,'邮箱') == false) {
-        document.getElementsByName('Email')[0].focus();
-        /* document.getElementsByName('Email')[0].select();*/
     }  else if ( validInformation(password, '密码') == false) {
         document.getElementsByName('password')[0].focus();
         /* document.getElementsByName('password')[0].select();*/
@@ -265,7 +261,7 @@ function validInformation (value, alertTxt) {
         /* alert(alertTxt + " format is wrong." +
          " length must be 6 to 20,and must be letter,number,dot,underline.");*/
         setElementStatus("alert_box","block");
-        setElementHtml ("alert_text", alertTxt +  "格式错误！" +"长度6到20，有字母，数字，点，下划线组成");
+        setElementHtml ("alert_text", alertTxt +  "格式错误！" +"长度不能为空，有字母，数字，点，下划线组成");
         /*   $('#alert_text').html(alertTxt + " 格式错误！" +"长度6到20，有字母，数字，点，下划线组成");*/
         return false;
     }
@@ -284,12 +280,19 @@ function  setElementHtml (className, html) {
 }
 
 function checkEmail (str){
-    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-    return reg.test(str);
+    /*var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    return reg.test(str);*/
+    if (str != null) {
+        return true;
+    } else {
+        return false;
+    }
+
+
 }
 
 function checkPassword(str) {
-    if (!/^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){5,19}$/.test(str)) {
+    if (!/^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){1,19}$/.test(str)) {
         return false;
     } else {
         return true;
