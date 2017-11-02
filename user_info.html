@@ -179,29 +179,29 @@
                     <div class="per_box">
                         <h3>个人中心</h3>
                         <div class="row first">
-                            <div id="personAvatar"></div>
+                            <div id="personAvatar" v-bind:style="{backgroundImage:'url(' + personInfo.imgAvatar + ')'}"></div>
                             <div class="set_avatar" onclick="showAvatarBox()">设置头像</div>
                             <i class="msg_icon"><a>站内信</a></i>
                         </div>
                         <div class="per_info" >
                             <div class="row nickname">
                                 <span>昵称：</span>
-                                <div class="width" id="nickname"></div>
+                                <div class="width" id="nickname" v-html="personInfo.username"></div>
                                 <!--  <input id="nickname" disabled>-->
                             </div>
                             <div class="row my_atten">
-                                <span id="myAtten" @click="getAtten">我的关注:</span>
-                                <div class="width" id="atten-num"></div>
+                                <span id="myAtten" @click="showAtten">我的关注:</span>
+                                <div class="width" id="atten-num" v-html="attenNum"></div>
                                 <!--<input id="atten-num" disabled>-->
                             </div>
                             <div class="row my_fans">
-                                <span id="myFans"  @click="getFans">我的粉丝</span>
-                                <div class="width" id="fans-num"></div>
+                                <span id="myFans"  @click="showFans">我的粉丝</span>
+                                <div class="width" id="fans-num" v-html="fansNum"></div>
                             </div>
                             <div class="row gender">
                                 <span>性别:</span>
                                 <!-- <input class="width" id="gender">-->
-                                <select class="width" id="gender" style="padding-left:20.5%">
+                                <select v-model="personInfo.sex" class="width" id="gender" style="padding-left:20.5%">
                                     <option value="woman">女</option>
                                     <option value="man">男</option>
                                     <option value="unknown">保密</option>
@@ -210,17 +210,17 @@
                             <div class="row age">
                                 <span>年龄:</span>
                                 <!--<div id="age"></div>-->
-                                <input class="width" id="age">
+                                <input class="width" id="age" v-model="personInfo.age">
                             </div>
                             <div class="row telephone">
                                 <span>电话:</span>
                                 <!-- <div id="telephone"></div>-->
-                                <input class="width" id="telephone">
+                                <input class="width" id="telephone" v-model="personInfo.phone">
                             </div>
                             <div class="row email">
                                 <span>邮箱</span>
                                 <!--<div id="email"></div>-->
-                                <input class="width" id="email">
+                                <input class="width" id="email" v-model="personInfo.email">
                             </div>
                         </div>
                         <div class="btn_submit">修改</div>
@@ -229,9 +229,10 @@
 
                 <div v-if="list_status" style="width: 100%">
                     <div class="list_box">
-                        <span class="list_title">{{list_title}}</span>
+                        <span class="list_title" v-html="list_title"></span>
                         <a class="btn_back" @click="goBack">返回</a>
-
+                        <list-item v-for="item in listArray" :avatar="item.imgAvatar" :name="item.username"
+                                   :key="item.userID"></list-item>
                     </div>
                 </div>
 

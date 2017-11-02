@@ -2,31 +2,13 @@
  * Created by Administrator on 2017/7/14.
  */
 
-var admireArray =[];
+/*var admireArray =[];
 var fanArray = [];
-var personInfo = {};
-function showPersonInfo(person) {
-    console.log('showPersonInfon')
-    $('#nickname').html(person.username);
-    if(!person.sex) {
-        console.log('gender is unknown');
-        $('#gender').val('unknown');
-    }
-    if(person.email) {
-        console.log('email is vaild');
-        $('#email').val(person.email);
-    }
-    if (person.phone) {
-        console.log('phone is vaild');
-        $('#telephone').val(person.phone)
-    }
-    $('#atten-num').html(person.attenNum);
-    $('#fans-num').html(person.fansNum);
-    $('#age').val(person.age);
-};
+ var personInfo={},
+*/
 
 $(document).ready(function () {
-     getPersonInfo();
+  /*   getPersonInfo();*/
      $('.btn_submit').click(updateInfo);
 
 });
@@ -37,7 +19,13 @@ new Vue({
         per_status:true,
         list_status:false,
         list_title:'',
-        listArray:[]
+        personInfo:{},
+        attenNum:'',
+        fansNum:'',
+        listArray:[],
+        admireArray:[],
+        fanArray :[]
+
     },
     components: {
         'list-item': {
@@ -46,129 +34,126 @@ new Vue({
         }
     },
     methods:{
-        // jumpRoom:function (rid) {
-        //     console.log('jump rid = ' + rid);
-        //     window.location.href = 'http://www.campuslive.cn:8080/room/' + rid;
-        // }
-        getAtten:function() {
+        getPersonAtten:function () {
+            var that = this;
+            $.ajax({
+                type:'GET',
+                contentType : 'application/json',
+                url : 'http://www.campuslive.cn:8080/user/anchorlist?uid=' + sessionStorage.getItem('uid'),
+               /* async: false,*/
+                processData : false,
+                dataType : 'json',
+                success: function (data) {
+                    var num = data.ret.list.length;
+                    that.admireArray = data.ret.list;
+                    that.attenNum = num;
+                    console.log('attenNum' + that.attenNum);
+                },
+                error: function () {
+                    console.log('Get personal attention  from server Error');
+                }
+            });
+        },
+       getPersonFans:function() {
+            var that = this;
+            $.ajax({
+                type:'GET',
+                contentType : 'application/json',
+                url : 'http://www.campuslive.cn:8080/user/fanlist?uid=' + sessionStorage.getItem('uid'),
+             /*   async: false,*/
+                processData : false,
+                dataType : 'json',
+                success: function (data) {
+                    var num = data.ret.list.length;
+                    that.fanArray = data.ret.list;
+                    that.fansNum =  num;
+                    console.log('fansNum' + that.fansNum);
+                },
+                error: function () {
+                    console.log('Get personal fanslist  from server Error');
+                }
+            });
+       },
+        getPersonInfo:function () {
+            var that = this;
+            if(!sessionStorage.getItem('uid')) {
+                alert('请先登陆');
+                return;
+            }
+            $.ajax({
+                type:'GET',
+                contentType : 'application/json',
+                url : 'http://www.campuslive.cn:8080/user/userinfo?uid=' + sessionStorage.getItem('uid'),
+                /* async: false,*/
+                processData : false,
+                dataType : 'json',
+                success: function (data) {
+                  /*  $('#personAvatar').css('background-image',sessionStorage.getItem('avatarUrl'));*/
+                    that.personInfo = data.ret;
+                    console.log('personInfo');
+                    console.log(that.personInfo);
+                    console.log(that.personInfo.imgAvatar);
+                    if(!that.personInfo.imgAvatar) {
+                        that.personInfo.imgAvatar = "/static/source/img/avatar.png";  /*设置默认头像*/
+                    }
+                },
+                error: function () {
+                    console.log('Get personal infomation from server Error');
+                }
+            });
+        },
+       showPersonInfo:function () {
+            console.log('showPersonInfon')
+            $('#nickname').html(this.personInfo.username);
+            if(!this.personInfo.sex) {
+                console.log('gender is unknown');
+                $('#gender').val('unknown');
+            }
+            if( this.personInfo.email) {
+                console.log('email is vaild');
+                $('#email').val( this.personInfo.email);
+            }
+            if ( this.personInfo.phone) {
+                console.log('phone is vaild');
+                $('#telephone').val( this.personInfo.phone)
+            }
+            $('#atten-num').html(this.personInfo.attenNum);
+            $('#fans-num').html( this.personInfo.fansNum);
+            $('#age').val( this.personInfo.age);
+       },
+        showAtten:function() {
             this.per_status = false;
             this.list_status = true;
             this.list_title = '我的关注';
-            this.listArray = admireArray;
+            this.listArray = this.admireArray;
+            console.log("this.admireArray");
+            console.log(this.admireArray);
         },
-        getFans:function() {
+        showFans:function() {
            this.per_status = false;
             this.list_status = true;
             this.list_title = '我的粉丝';
-            this.fanArray = fanArray;
+            this.listArray = this.fanArray;
+            console.log("this.fanArray");
+            console.log(this.fanArray);
         },
         goBack:function () {
             this.per_status = true;
             this.list_status = false;
-            window.showPersonInfo(personInfo);
-            console.log(window.showPerInfo instanceof Function);
+           /* this.showPersonInfo();*/
             console.log('admireArray');
-            console.log(admireArray);
+            console.log(this.admireArray);
             console.log('fanArray');
-            console.log(fanArray);
-        }
+            console.log(this.fanArray);
+        },
+    },
+    created:function(){
+         this.getPersonInfo();
+         this.getPersonAtten();
+         this.getPersonFans();
     }
 });
 
-/*
-$('#myAtten').click(function () {
-    $('.per_box').hide();
-    $('.list_box').show();
-    $('.list_title').html('我的关注');
-    console.log('admireArray:');
-    console.log(admireArray);
-});
-
-$('#myFans').click(function () {
-    $('.per_box').hide();
-    $('.list_box').show();
-    $('.list_title').html('我的粉丝');
-    console.log('fanArray:');
-    console.log(fanArray);
-});
-
-$('#btn_back').click(function () {
-    $('.per_box').show();
-    $('.list_box').hide();
-});
-*/
-
-
-function getPersonInfo() {
-    if(!sessionStorage.getItem('uid')) {
-        alert('请先登陆');
-        return;
-    }
-    $.ajax({
-        type:'GET',
-        contentType : 'application/json',
-        url : 'http://www.campuslive.cn:8080/user/userinfo?uid=' + sessionStorage.getItem('uid'),
-        async: false,
-        processData : false,
-        dataType : 'json',
-        success: function (data) {
-            $('#personAvatar').css('background-image',sessionStorage.getItem('avatarUrl'));
-            personInfo = data.ret;
-            console.log('personInfo');
-            console.log(personInfo);
-            getPersonAtten();
-            getPersonFans();
-           /* console.log('attenNum');
-            console.log(personInfo.attenNum);
-            console.log('fansNum');
-            console.log(personInfo.fansNum);*/
-            showPersonInfo(personInfo);
-        },
-        error: function () {
-            console.log('Get personal infomation from server Error');
-        }
-    });
-}
-
-
-
-function getPersonAtten() {
-    $.ajax({
-        type:'GET',
-        contentType : 'application/json',
-        url : 'http://www.campuslive.cn:8080/user/anchorlist?uid=' + sessionStorage.getItem('uid'),
-        async: false,
-        processData : false,
-        dataType : 'json',
-        success: function (data) {
-           var num = data.ret.list.length;
-            admireArray = data.ret.list;
-            personInfo.attenNum = num;
-        },
-        error: function () {
-            console.log('Get personal attention  from server Error');
-        }
-    });
-}
-
-function getPersonFans() {
-    $.ajax({
-        type:'GET',
-        contentType : 'application/json',
-        url : 'http://www.campuslive.cn:8080/user/fanlist?uid=' + sessionStorage.getItem('uid'),
-        async: false,
-        processData : false,
-        dataType : 'json',
-        success: function (data) {
-            var num = data.ret.list.length;
-            fanArray = data.ret.list;
-            personInfo.fansNum =  num;
-        },
-        error: function () {
-            console.log('Get personal fanslist  from server Error');
-        }
-    });
-}
 
 function  showAvatarBox() {
     var bh = $("body").height();
@@ -196,11 +181,11 @@ function updateInfo() {
     var age = $('#age').val();
     var email = $('#email').val();
     var phone = $('#telephone').val();
-    console.log('username = ' + username);
+    /*console.log('username = ' + username);
     console.log('sex = ' +    sex);
     console.log('age = ' +  age);
     console.log('email = ' + email);
-    console.log('phone = ' + phone);
+    console.log('phone = ' + phone);*/
     requestdata = '{"userID" : "' + uid + '","username" : "' + username + '","sex" : "' + sex +
                    '","email" : "'+email + '","phone" : "' +
                    phone +'"}';

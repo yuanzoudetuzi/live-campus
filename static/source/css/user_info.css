@@ -177,8 +177,10 @@
     width: 8vw;
     height: 8vw;
     margin-left: 2rem;
-    background: url("../img/avatar.png");
+  /*  background: url("../img/avatar.png");*/
     background-size: cover;
+    border-style:none;
+    border-width:0;
 }
 
 .first .set_avatar {
