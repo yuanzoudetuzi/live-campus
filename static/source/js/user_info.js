@@ -1,12 +1,103 @@
 /**
  * Created by Administrator on 2017/7/14.
  */
+
+var admireArray =[];
+var fanArray = [];
+var personInfo = {};
+function showPersonInfo(person) {
+    console.log('showPersonInfon')
+    $('#nickname').html(person.username);
+    if(!person.sex) {
+        console.log('gender is unknown');
+        $('#gender').val('unknown');
+    }
+    if(person.email) {
+        console.log('email is vaild');
+        $('#email').val(person.email);
+    }
+    if (person.phone) {
+        console.log('phone is vaild');
+        $('#telephone').val(person.phone)
+    }
+    $('#atten-num').html(person.attenNum);
+    $('#fans-num').html(person.fansNum);
+    $('#age').val(person.age);
+};
+
 $(document).ready(function () {
      getPersonInfo();
-
-    /* $('.btn_submit').click(updateInfo());*/
+     $('.btn_submit').click(updateInfo);
 
 });
+
+new Vue({
+    el:'#app',
+    data:{
+        per_status:true,
+        list_status:false,
+        list_title:'',
+        listArray:[]
+    },
+    components: {
+        'list-item': {
+            template: '#list_item',
+            props: ['avatar', 'name']
+        }
+    },
+    methods:{
+        // jumpRoom:function (rid) {
+        //     console.log('jump rid = ' + rid);
+        //     window.location.href = 'http://www.campuslive.cn:8080/room/' + rid;
+        // }
+        getAtten:function() {
+            this.per_status = false;
+            this.list_status = true;
+            this.list_title = '我的关注';
+            this.listArray = admireArray;
+        },
+        getFans:function() {
+           this.per_status = false;
+            this.list_status = true;
+            this.list_title = '我的粉丝';
+            this.fanArray = fanArray;
+        },
+        goBack:function () {
+            this.per_status = true;
+            this.list_status = false;
+            window.showPersonInfo(personInfo);
+            console.log(window.showPerInfo instanceof Function);
+            console.log('admireArray');
+            console.log(admireArray);
+            console.log('fanArray');
+            console.log(fanArray);
+        }
+    }
+});
+
+/*
+$('#myAtten').click(function () {
+    $('.per_box').hide();
+    $('.list_box').show();
+    $('.list_title').html('我的关注');
+    console.log('admireArray:');
+    console.log(admireArray);
+});
+
+$('#myFans').click(function () {
+    $('.per_box').hide();
+    $('.list_box').show();
+    $('.list_title').html('我的粉丝');
+    console.log('fanArray:');
+    console.log(fanArray);
+});
+
+$('#btn_back').click(function () {
+    $('.per_box').show();
+    $('.list_box').hide();
+});
+*/
+
 
 function getPersonInfo() {
     if(!sessionStorage.getItem('uid')) {
@@ -22,35 +113,24 @@ function getPersonInfo() {
         dataType : 'json',
         success: function (data) {
             $('#personAvatar').css('background-image',sessionStorage.getItem('avatarUrl'));
-            // $('#personAvatar').css('background-image',data.imgAvatar);
-            console.log('username = ' + data.ret.username);
-            console.log('sex = ' +  data.ret.sex);
-            console.log('age = ' +  data.ret.age);
-            console.log('email = ' + data.ret.email);
-            console.log('phone = ' + data.ret.phone);
-            $('#nickname').html(data.ret.username);
-            if(!data.ret.sex) {
-                console.log('gender is unknown');
-                $('#gender').val('unknown');
-            }
-            if(data.ret.email) {
-                console.log('email is vaild');
-                $('#email').val(data.ret.email);
-            }
-            if (data.ret.phone) {
-                console.log('phone is vaild');
-                $('#telephone').val(data.ret.phone)
-            }
-
-            $('#age').val(data.ret.age);
+            personInfo = data.ret;
+            console.log('personInfo');
+            console.log(personInfo);
             getPersonAtten();
             getPersonFans();
+           /* console.log('attenNum');
+            console.log(personInfo.attenNum);
+            console.log('fansNum');
+            console.log(personInfo.fansNum);*/
+            showPersonInfo(personInfo);
         },
         error: function () {
             console.log('Get personal infomation from server Error');
         }
     });
 }
+
+
 
 function getPersonAtten() {
     $.ajax({
@@ -62,7 +142,8 @@ function getPersonAtten() {
         dataType : 'json',
         success: function (data) {
            var num = data.ret.list.length;
-            $('#atten-num').html(num);
+            admireArray = data.ret.list;
+            personInfo.attenNum = num;
         },
         error: function () {
             console.log('Get personal attention  from server Error');
@@ -80,7 +161,8 @@ function getPersonFans() {
         dataType : 'json',
         success: function (data) {
             var num = data.ret.list.length;
-            $('#fans-num').html(num);
+            fanArray = data.ret.list;
+            personInfo.fansNum =  num;
         },
         error: function () {
             console.log('Get personal fanslist  from server Error');
@@ -368,32 +450,9 @@ var postFile = {
                     console.log('Update avatar ' + XmlHttpRequest.responseText);
                 }
             });
-           /* $.post("http://www.campuslive.cn:8080/user/avatar/upload",
-                {
-                    avatar:avatar,
-                    uid:sessionStorage.getItem('uid')
-                },
-                function(data,status,XmlHttpRequest){
-                    if (status == 'success') {
-                        console.log('上传头像 code1 = ' + data.code );
-                        if(data.code == 200){
-                            alert('上传成功');
-                            console.log("上传成功");
-                        } else if (data.code == 6053) {
-                            console.log('上传用户头像或者用户id为空');
-                        } else if (data.code == 6054) {
-                            nsole.log('上传用户头像上传失败6054');
-                        }
-                        else {
-                            console.log('上传用户头像上传失败');
-                        }
-                    }  else {
-                        console.log('Update avatar ' + XmlHttpRequest.responseText);
-                    }
-                });*/
         }
 
     }
 
-}
+};
 postFile.init();

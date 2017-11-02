@@ -41,55 +41,15 @@ new Vue({
             processData : false,
             dataType : 'json',
             success : function (data) {
-                console.log('data.code = ' + data.code);
-                console.log('There are ' + data.ret.list.length + " rooms!" );
-                console.log('First room rid is  ' + data.ret.list[0].rid);
                 that.roomList = data.ret.list;
                 console.log('this = ' + this)
-               /* for(var i = 0; i < data.ret.list.length; i++ ){
-                    this.roomList[i].description = data.ret.list[i].rid;
-                    this.roomList[i].username = data.ret.list[i].username;
-                    this.roomList[i].category = data.ret.list[i].category;
-                }*/
                 console.log('roomList = ' + this.roomList)
-                console.log(that.roomList[0].description, that.roomList[0].username,that.roomList[0].category);
-                // showRoomList();
             },
             error : function () {
                 console.log('Get room list  error...');
             }
         })
-       /* this.$http.get('http://www.campuslive.cn:8080/room/roomlist?records=12&pnum=1',{'responseType': 'json'})
-            .then(function(data){
-                    //请求成功的回调函数
-                console.log('data = ' + data);
-              /!*  console.log('data = ' + JSON.parse(data.code));*!/
-                console.log('get success');
-                console.log('data.code = ' + data.code);
-                console.log('There are ' + data.ret.list.length + " rooms!" );
-                console.log('First room rid is  ' + data.ret.list[0].rid);
-                console.log('roomList = ' + this.roomList)
-                console.log(this.roomList[0].description, this.roomList[0].username,this.roomList[0].category);
-
-                this.roomList = data.ret.list;
-                },function(error){
-                    //请求失败的回调函数
-                console.log('Get roomList is '+error);
-                }
-
-            );*/
     }
-   /* created: function () {
-        Vue.http.get('http://www.campuslive.cn:8080/room/roomlist?records=12&pnum=1').then(function (data) {
-            console.log('data.code = ' + data.code);
-            console.log('There are ' + data.ret.list.length + " rooms!" );
-            console.log('First room rid is  ' + data.ret.list[0].rid);
-            roomList = data.ret.list;
-        },function (error) {
-            console.log('Get roomList from server is ERROR');
-        })
-
-    }*/
 });
 
 /*
