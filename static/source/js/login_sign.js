@@ -35,6 +35,7 @@ function hoverNavigation() {
     $('.nav_btn').mouseover(function () {
         img =  $(this).css("background-image").substr(-11,9);  //获得图片名称home0.png
         imgIdx =  $(this).css("background-image").substr(-7,5);  //获得图片标号0.png
+        $(this).css("background-image","url(/static/source/img/home_" + imgIdx + ")");
     });
 
     $('.nav_btn').mouseout(function () {

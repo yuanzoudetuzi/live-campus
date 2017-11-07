@@ -1,3 +1,4 @@
+
 html,body,ul,li,ol,h1,h2,h3,h4,h5,h6{
     padding: 0px;  margin: 0px;
 }
@@ -6,8 +7,10 @@ button {
 }
 
 a {
+    color: black;
     padding: 1px 2px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 a:hover {
@@ -28,6 +31,11 @@ body{
     overflow-y: auto;
     background-color: #f2f2f2;
 }
+
+.modal {
+    display: none;
+}
+
 #cover_layer {
     background-color:black;
     left:0;
@@ -251,7 +259,8 @@ body{
 }
 
 .wrap {
-    max-width: 1400px;
+ /*   max-width: 1400px;*/
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
@@ -277,6 +286,9 @@ nav {
     border-radius: 2px;
 }
 
+.down_load img {
+    cursor: pointer;
+}
 .wrap_box {
     display: flex;
     flex: 1;
@@ -298,10 +310,6 @@ main {
 
 }
 
-.room_list_contain {
-    width: 100%;
-    background:white;
-}
 
  aside {
     width: 30%;
@@ -310,7 +318,11 @@ main {
 }
 
  footer {
-    background-color: #06bcfb;
+     padding: 5px 0;
+     font-size: .6rem;
+     background-color: #959191;
+     text-align: center;
+     color: #f4f4f4;
 }
 
 

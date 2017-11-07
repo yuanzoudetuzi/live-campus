@@ -5,14 +5,15 @@
     <title>Campus Live</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!--bootstrap引入-->
-     <!--  <link rel="stylesheet" href="/static/source/css/bootstrap.min.css">-->
-    <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
-    <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-     <link rel="stylesheet" type="text/css" href="http://www.bootcss.com/p/buttons/css/buttons.css">-->
-
+    <link rel="stylesheet" href="/static/source/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!--网页 拉流SDK引入-->
+    <link href="//nos.netease.com/vod163/nep.min.css" rel="stylesheet">
+    <script src="//nos.netease.com/vod163/nep.min.js"></script>
     <!--自定义-->
-    <link rel="stylesheet" href="static/source/css/index_layout.css" />
-    <link rel="stylesheet" href="static/source/css/index.css" />
+    <link rel="stylesheet" href="/static/source/css/index_layout.css" />
+    <link rel="stylesheet" href="/static/source/css/nav.css" />
+    <link rel="stylesheet" href="/static/source/css/index.css" />
 
 </head>
 <body>
@@ -61,21 +62,6 @@
         <br>
         <div class="hepanlogin"><p>请使用清水河畔账号登录</p></div>
     </form>
-    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-    <!--
-
-        <div class="login_title2">
-            <div class="line1"></div>
-            <div class="lg_title2">其他登陆方式</div>
-            <div class="line2"></div>
-        </div>
-        <div class="third_lg_control">
-            <div class="third_lg lg_qq"></div>
-            <div class="third_lg lg_wechat"></div>
-            <div class="third_lg lg_weibo"></div>
-        </div>
-        -->
 </div>
 <div id="register_box" class="sign_box">
     <div class="login_title">注册</div>
@@ -106,15 +92,20 @@
 <div id="register_success">
     注册成功，请登录~
 </div>
+
 <div class="wrap">
     <header>
         <div class="head_nav">
             <div class="log"></div>
-            <a class="home">首页</a>
-            <a>分类</a>
+            <a class="home" href="/">首页</a>
+            <a href="/category/all">分类</a>
             <div id="search_box">
                 <input id="ipt_search">
                 <input type="button" class="search_img" onclick="search()">
+            </div>
+            <div class="down_load">
+                <span>下载</span>
+                <img src="static/source/img/download.png" data-toggle="modal" data-target="#down_box">
             </div>
              <div id="login_area">
                  <a href="javascript:showLoginBox()">登陆/</a>
@@ -127,83 +118,86 @@
              </div>
         </div>
     </header>
-    <nav>
-        <a class="nav_btn" title="内测阶段，无法使用，请谅解" >校园活动</a>
-        <a class="nav_btn" title="内测阶段，无法使用，请谅解">学习交流</a>
-        <a class="nav_btn" title="内测阶段，无法使用，请谅解">户外旅行</a>
-        <a class="nav_btn" title="内测阶段，无法使用，请谅解">游戏分享</a>
-        <a class="nav_btn" title="内测阶段，无法使用，请谅解">美食推荐</a>
-        <a class="nav_btn" title="内测阶段，无法使用，请谅解">扫码下载</a>
-        <div class="QX"></div>
-    </nav>
-    <div class="wrap_box">
-        <div class="wrap_middle">
+
+    <div id="app" class="wrap_box" >
+        <div class="wrap_room">
             <main>
-                 <div id="room_list_contain">
-                     <div class="row" style="margin: 10px 15px">
-                         <div>
-                             <h3>温馨提示</h3>
-                             <p style="margin-top: 10px">为了更好的观影体验，需要亲亲做到以下几点哦~：</p>
-                             <p>1.使用chrome浏览器<p>
-                             <p style="margin-bottom: 20px">2.开启flash,关掉flash的‘先询问’（在浏览器设置的内容设置中）<p>
-                         </div>
-                     </div>
-                 </div>
-                <div id="app">
-                   <!-- <div>{{msg}}</div>-->
-                           <room-box v-for="room in roomList" :room_img="room.cover" :room_descri="room.description"
-                                     :play_num="room.username" :danmu_num="room.category" :key="room.rid" @click.native="jumpRoom(room.rid)"></room-box>
-
-                       <!--<transition-group  name="list">
-                           <room-box v-for='room in roomList' :room_descri='room.description' :play_num='room.username' :danmu_num='room.category' :key="room.rid"></room-box>
-                       </transition-group>-->
-                       <!--<room-box :room_descri="roomList[0].description" :play_num="roomList[0].username" :danmu_num="roomList[0].category"></room-box>-->
-                       <!--<room-box :room_descri="dd" :play_num="dd" :danmu_num="hh"></room-box>-->
+                <div class="main">
+                    <video id="my_video" class="video-js vjs-fluid vjs-big-play-centered" x-webkit-airplay="allow" webkit-playsinline controls poster="/static/source/img/post_img.png" preload="auto" >
+                        <!-- <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">-->
+                    </video>
                 </div>
-              <!--  <div class="test">
-                    <div class="test_img"></div>
-                    &lt;!&ndash;<img src="static/source/img/test.png"/>&ndash;&gt;
-                    <div>
-                        <p>额，我们还在内测阶段</p>
-                        <p>部分功能暂未开通</p>
-                        <p>谢谢关注，比哈特</p>
-                    </div>
+                <div class="aside" >
+                    <aside-box v-for="room in asideList" :aside_img="room.cover"  @click.native="jumpRoom(room.rid)"></aside-box>
+                </div>
 
-                </div>-->
             </main>
-
-            <aside>
-
-            </aside>
         </div>
-          <footer>
-              版本信息
-          </footer>
-      </div>
+        <div class="room_list_contain">
+            <div class="room_list_title">
+                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                <span>推荐直播</span>
+            </div>
+            <div class="room_list">
+                <room-box v-for="room in roomList" :room_img="room.cover"
+                :username="room.username" :category="room.category" :key="room.rid" @click.native="jumpRoom(room.rid)"></room-box>
+            </div>
 
+        </div>
+      </div>
+    <footer>
+        <p>
+            <i class="fa fa-map-marker" aria-hidden="true"></i>四川省成都市高新西区电子科技大学
+            <span>&nbsp;&nbsp;</span>
+            <i class="fa fa-phone" aria-hidden="true"></i>18999999999
+        </p>
+        <p>COPYRIGHT<span>&nbsp;&nbsp;</span>@<span>&nbsp;&nbsp;</span>LIVE-CAPUSE 工作室</p>
+    </footer>
 </div>
 <template id="room_box">
     <div class="room_box">
         <img :src="room_img"/>
-        <h6>{{room_descri}}</h6>
         <div class="room_des">
-            <span><i class="play_num"></i>{{play_num}}</span>
-            <span><i class="danmu_num"></i>{{danmu_num}}</span>
+            <span><i class="play_num"></i>{{username}}</span>
+            <span><i class="danmu_num"></i>{{category}}</span>
         </div>
 
     </div>
 </template>
+
+<template id="aside_box">
+    <div class="aside_box">
+        <img :src="aside_img"/>
+    </div>
+</template>
+<div class="modal fade" id="down_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">app 下载二维码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="app_QX"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 </body>
 <!--<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>-->
-<script src="static/source/js/vue.js"></script>
-<script src="static/source/js/vue-resource.js"></script>
-<script src="static/source/js/jquery-3.2.1.min.js"></script>
+<script src="/static/source/js/vue.js"></script>
+<script src="/static/source/js/vue-resource.js"></script>
+<script src="/static/source/js/jquery-3.2.1.min.js"></script>
+<script src="/static/source/js/bootstrap.min.js"></script>
 <!--网易-->
-<script src="static/source/js/video-js/video.min.js"></script>
-<script src="static/source/js/video-js/videojs-contrib-hls.min.js"></script>
+<script src="/static/source/js/video-js/video.min.js"></script>
+<script src="/static/source/js/video-js/videojs-contrib-hls.min.js"></script>
 <!--自定义-->
-<script src="static/source/js/login_sign.js"></script>
-<script src="static/source/js/index.js"></script>
+<script src="/static/source/js/login_sign.js"></script>
+<script src="/static/source/js/index.js"></script>
 <!--<script src="static/source/js/main.js"></script>-->
 
 </html>

@@ -11,9 +11,10 @@
      <link rel="stylesheet" type="text/css" href="http://www.bootcss.com/p/buttons/css/buttons.css">-->
    <!--JQuery样式-->
    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+    <link rel="stylesheet" href="/static/source/css/bootstrap.min.css">
     <!--自定义-->
     <link rel="stylesheet" href="/static/source/css/index_layout.css" />
-    <link rel="stylesheet" href="/static/source/css/index.css" />
+    <link rel="stylesheet" href="/static/source/css/nav.css" />
     <link rel="stylesheet" href="/static/source/css/user_info.css" />
 
 </head>
@@ -139,15 +140,36 @@
 
 
 </div>
+
+<div class="modal fade" id="down_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">app 下载二维码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="app_QX"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 <div class="wrap">
     <header>
         <div class="head_nav">
             <div class="log"></div>
-            <a class="home">首页</a>
-            <a>分类</a>
+            <a class="home" href="/">首页</a>
+            <a href="/category/all">分类</a>
             <div id="search_box">
                 <input id="ipt_search">
                 <input type="button" class="search_img" onclick="search()">
+            </div>
+            <div class="down_load">
+                <span>下载</span>
+                <img src="/static/source/img/download.png" data-toggle="modal" data-target="#down_box">
             </div>
             <div id="login_area">
                 <a href="javascript:showLoginBox()">登陆/</a>
@@ -261,6 +283,7 @@
 <!--<script src="//code.jquery.com/jquery-1.12.4.js"></script>-->
 <script src="/static/source/js/vue.js"></script>
 <script src="/static/source/js/jquery-3.2.1.min.js"></script>
+<script src="/static/source/js/bootstrap.min.js"></script>
 <!--网易-->
 <script src="/static/source/js/video-js/video.min.js"></script>
 <script src="/static/source/js/video-js/videojs-contrib-hls.min.js"></script>
