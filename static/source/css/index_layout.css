@@ -20,10 +20,9 @@ a:hover {
 html,body{
     height: 100%;
     width: 100%;
-
     font-family:Arial,Helvetica,"宋体",sans-serif;
     font-weight: 700;
-    font-size: 1.5vw;
+    font-size: 1vw;
 }
 
 body{
@@ -32,6 +31,9 @@ body{
     background-color: #f2f2f2;
 }
 
+.bg_theme_color {
+    background-color: #34abf7;
+}
 .modal {
     display: none;
 }
@@ -48,174 +50,207 @@ body{
     -khtml-opacity:0.5;
 }
 
-
-.sign_box {
-    background-color:#a3c6fd;
-    border:2px solid rgba(0,0,0, 0.4);
-    height:460px;
-    left:50%;
-    margin:-260px 0 0 -200px;
-    padding:20px 50px 0px;
-    position:fixed !important; /* 浮动对话框 */
-    position:absolute;
-    top:50%;
-    width:300px;
-    z-index:201;
-    border-radius:5px;
-    display:none;
+/*现在*/
+#log_box .modal-content,#sign_box .modal-content{
+    background-image: url('../img/loginxzy.png');
+    background-size: cover;
+}
+#log_box .sign_content {
+    padding: 20px 40px;
+    width: 500px;
+    height: 500px;
 }
 
-.sign_box hr {
-    margin: 10px -50px;
+#sign_box .sign_content {
+    padding: 20px 40px;
+    width: 500px;
+    height: 580px;
 }
-.sign_box .login_title {
-    text-align: left;
+.sign_title {
+    margin: 40px 0;
     font-weight: 700;
-}
-.sign_box .zhuce{
-    color: #34abf7;
-}
-.sign_box .zhuce:hover{
-    color: #1eedf5;
+    color: #1B9AF7;
 }
 
-.sign_box input {
-    margin-top: 20px;
-    width:300px;
-    height: 35px;
-    line-height: 35px;
-    padding-left: 34px;
-    font-size: 14px;
-    border: 1px solid darkgrey;
-    border-radius: 3px;
-    outline: medium;
+#log_box .form-horizontal {
+    margin-bottom: 50px;
 }
 
-
-.sign_box .ipt_user {
-    width: 70%;
-    background-image: url("../img/ipt_user.png");
-    border-radius: 2px;
-    background-repeat:no-repeat;
-}
-.sign_box .ipt_user:hover {
-    border:1px solid #0de6fe;
+#log_box .form-group ,#sign_box .form-group{
+    margin-bottom: 50px;
 }
 
-.sign_box .ipt_em {
-    background-image: url("../img/ipt_em.png");
-    background-repeat:no-repeat;
-}
-
-
-.sign_box .ipt_pw {
-    width: 70%;
-    background-image: url("../img/ipt_pw.png");
-    border-radius: 2px;
-    background-repeat:no-repeat;
-}
-.sign_box .ipt_pw:hover {
-    border:1px solid #0de6fe;
-}
-
-.sign_box .alert_box {
-    margin-top: 20px;
-    display: none;
-    width: 100%;
-    height: auto;
-    padding-top: 6px;
-    padding-left: 10px;
-    background-color: #cc423c;
-    border-radius: 3px;
-
-}
-
-.sign_box .login_button {
-    margin-top: 20px;
-    width:100%;
-    height: 40px;
-    line-height: 40px;
-    border: none;
-    border-radius: 3px;
-    background-color: #0de6fe;
-    font-size:medium;
-    font-family:"微软雅黑",Arial ;
-    letter-spacing: 3px;
-    text-align: center;
-    color:white;
+.sign_btn {
     font-weight: 700;
+    color: white;
     cursor: pointer;
 }
-.sign_box .login_button:hover{
-    background: #38b7f9;
-}
-.sign_box .login_button:focus{
-    outline: none;
-    border: 1px solid  #0cb3d0;
-}
-.sign_box .login_title2 {
-    margin-top: 40px;
+
+.sign_btn:hover {
+    background-color:#1eedf5 ;
 }
 
-.sign_box .login_title2 .line1 {
-    width:120px;
-    height:0px;
-    margin-left: -50px;
-    border-bottom:1px solid #eeeeee;
-    float:left;
+.log_alert_box,.sign_alert_box {
+    display: none;
 }
+/*!*之前*!*/
+/*.sign_box {*/
+    /*background-color:#a3c6fd;*/
+    /*border:2px solid rgba(0,0,0, 0.4);*/
+    /*height:460px;*/
+    /*left:50%;*/
+    /*margin:-260px 0 0 -200px;*/
+    /*padding:20px 50px 0px;*/
+    /*position:fixed !important; !* 浮动对话框 *!*/
+    /*position:absolute;*/
+    /*top:50%;*/
+    /*width:300px;*/
+    /*z-index:201;*/
+    /*border-radius:5px;*/
+    /*display:none;*/
+/*}*/
 
-.sign_box .login_title2 .lg_title2 {
-    float:left;
-    font-size: medium;
-    width: 140px;
-    height:5px;
-    line-height:5px;
-    margin: 0px 10px;
-    text-align: center;
-    color:#6e6e6e;
-}
+/*.sign_box hr {*/
+    /*margin: 10px -50px;*/
+/*}*/
+/*.sign_box .login_title {*/
+    /*text-align: left;*/
+    /*font-weight: 700;*/
+/*}*/
+/*.sign_box .zhuce{*/
+    /*color: #34abf7;*/
+/*}*/
+/*.sign_box .zhuce:hover{*/
+    /*color: #1eedf5;*/
+/*}*/
 
-.sign_box .login_title2 .line2 {
-    width:120px;
-    height:0px;
-    margin-right: -50px;
-    border-bottom:1px solid #eeeeee;
-    float:right;
-}
+/*.sign_box input {*/
+    /*margin-top: 20px;*/
+    /*width:300px;*/
+    /*height: 35px;*/
+    /*line-height: 35px;*/
+    /*padding-left: 34px;*/
+    /*font-size: 14px;*/
+    /*border: 1px solid darkgrey;*/
+    /*border-radius: 3px;*/
+    /*outline: medium;*/
+/*}*/
 
-.sign_box .third_lg_control {
-    margin-top: 50px;
-    margin-bottom: 20px;
-}
-.sign_box .hepanlogin{
-    margin-top: 40 px;
-    font-size: small;
-    width: 100%;
-    height:5px;
-    line-height:5px;
-    margin: 0 auto;
-    text-align: center;
-    color:#839099;
-}
 
-.sign_box .third_lg_control .third_lg {
-    float: left;
-    height: 60px;
-    width: 60px;
-    margin:0px 18px ;
-}
+/*.sign_box .ipt_user {*/
+    /*width: 70%;*/
+    /*background-image: url("../img/ipt_user.png");*/
+    /*border-radius: 2px;*/
+    /*background-repeat:no-repeat;*/
+/*}*/
+/*.sign_box .ipt_user:hover {*/
+    /*border:1px solid #0de6fe;*/
+/*}*/
 
-.sign_box .third_lg_control .lg_qq {
-    background-image: url("../img/lg_qq.png");
-}
+/*.sign_box .ipt_em {*/
+    /*background-image: url("../img/ipt_em.png");*/
+    /*background-repeat:no-repeat;*/
+/*}*/
 
-.sign_box .third_lg_control .lg_wechat {
-    background-image: url("../img/lg_wechat.png");
-}
-.sign_box .third_lg_control .lg_weibo {
-    background-image: url("../img/lg_weibo.png");
-}
+
+/*.sign_box .ipt_pw {*/
+    /*width: 70%;*/
+    /*background-image: url("../img/ipt_pw.png");*/
+    /*border-radius: 2px;*/
+    /*background-repeat:no-repeat;*/
+/*}*/
+/*.sign_box .ipt_pw:hover {*/
+    /*border:1px solid #0de6fe;*/
+/*}*/
+
+/*!*.sign_box .alert_box {*!*/
+    /*!*margin-top: 20px;*!*/
+    /*!*display: none;*!*/
+    /*!*width: 100%;*!*/
+    /*!*height: auto;*!*/
+    /*!*padding-top: 6px;*!*/
+    /*!*padding-left: 10px;*!*/
+    /*!*background-color: #cc423c;*!*/
+    /*!*border-radius: 3px;*!*/
+
+/*!*}*!*/
+
+/*.sign_box .login_button {*/
+    /*margin-top: 20px;*/
+    /*width:100%;*/
+    /*height: 40px;*/
+    /*line-height: 40px;*/
+    /*border: none;*/
+    /*border-radius: 3px;*/
+    /*background-color: #0de6fe;*/
+    /*font-size:medium;*/
+    /*font-family:"微软雅黑",Arial ;*/
+    /*letter-spacing: 3px;*/
+    /*text-align: center;*/
+    /*color:white;*/
+    /*font-weight: 700;*/
+    /*cursor: pointer;*/
+/*}*/
+/*.sign_box .login_button:hover{*/
+    /*background: #38b7f9;*/
+/*}*/
+/*.sign_box .login_button:focus{*/
+    /*outline: none;*/
+    /*border: 1px solid  #0cb3d0;*/
+/*}*/
+/*.sign_box .login_title2 {*/
+    /*margin-top: 40px;*/
+/*}*/
+
+/*.sign_box .login_title2 .line1 {*/
+    /*width:120px;*/
+    /*height:0px;*/
+    /*margin-left: -50px;*/
+    /*border-bottom:1px solid #eeeeee;*/
+    /*float:left;*/
+/*}*/
+
+/*.sign_box .login_title2 .lg_title2 {*/
+    /*float:left;*/
+    /*font-size: medium;*/
+    /*width: 140px;*/
+    /*height:5px;*/
+    /*line-height:5px;*/
+    /*margin: 0px 10px;*/
+    /*text-align: center;*/
+    /*color:#6e6e6e;*/
+/*}*/
+
+/*.sign_box .login_title2 .line2 {*/
+    /*width:120px;*/
+    /*height:0px;*/
+    /*margin-right: -50px;*/
+    /*border-bottom:1px solid #eeeeee;*/
+    /*float:right;*/
+/*}*/
+
+/*.sign_box .third_lg_control {*/
+    /*margin-top: 50px;*/
+    /*margin-bottom: 20px;*/
+/*}*/
+/*.sign_box .hepanlogin{*/
+    /*margin-top: 40 px;*/
+    /*font-size: small;*/
+    /*width: 100%;*/
+    /*height:5px;*/
+    /*line-height:5px;*/
+    /*margin: 0 auto;*/
+    /*text-align: center;*/
+    /*color:#839099;*/
+/*}*/
+
+/*.sign_box .third_lg_control .third_lg {*/
+    /*float: left;*/
+    /*height: 60px;*/
+    /*width: 60px;*/
+    /*margin:0px 18px ;*/
+/*}*/
+
 
 .login_in {
     display: none;
@@ -225,8 +260,8 @@ body{
 }
 
 #login_img {
-    width: 4.5vw;
-    height: 4.5vw;
+    width: 50px;
+    height: 50px;
     background: url("../img/avatar.png");
     float: left;
     background-size:contain;

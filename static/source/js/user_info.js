@@ -1,28 +1,114 @@
 /**
  * Created by Administrator on 2017/7/14.
  */
+var cardFileName;
+function inputCardImage(input) {
+    var imageType = /(.jpg|.jpeg|.gif|.png)$/;
+    var file = input.files[0];
+    cardFileName = file.name;
+    console.log('  cardFileName = ' +   cardFileName);
+    console.log('file image');
+    console.log(file);
+    if ( !imageType.test(file.type) ) {
+        alert("请选择图片类型上传");
+    } else {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var data = e.target.result;
+            var img = new Image();
+            img.onload = function () {
+                console.log('img height = ' +img.height);
+                console.log('img width = ' +img.width);
+                showCardImage(img);
+            }
+            img.src = data;
+        }
+        reader.readAsDataURL(file);
+    }
+};
 
-/*var admireArray =[];
-var fanArray = [];
- var personInfo={},
-*/
+function showCardImage(img) {
+    var canvas = document.getElementById("cardImage");
+    var ctx = canvas.getContext("2d");
+    var MAX_WIDTH = $('#card_contain').width();
+    var MAX_HEIGHT = $('#card_contain').height();
+    console.log(' MAX_WIDTH = ' + MAX_WIDTH + " MAX_HEIGHT =" +  MAX_HEIGHT);
+    var width = img.width;
+    var height = img.height;
+    var imgWidth,imgHeight;
+    console.log('img height1 = ' + height);
+    console.log('img width2 = ' + width);
+    if(width < MAX_WIDTH && height < MAX_HEIGHT) {
+        imgWidth = width;
+        imgHeight = height;
+    } else {
+        var pWidth = width / (height / MAX_HEIGHT);
+        var pHeight = height / (width / MAX_WIDTH);
+        imgWidth = width > height ?MAX_WIDTH: pWidth;
+        imgHeight = height > width ?MAX_HEIGHT : pHeight;
+    }
+    console.log('imgHeight = ' + imgHeight);
+    console.log('imgWidth = ' + imgWidth);
+    canvas.width = imgWidth;
+    canvas.height = imgHeight;
+    ctx.drawImage(img, 0, 0, imgWidth,imgHeight);
+}
 
-$(document).ready(function () {
-  /*   getPersonInfo();*/
-     $('.btn_submit').click(updateInfo);
-
-});
-
+function updateCardImag() {
+    if(!cardFileName) {
+        $('.alert_certify').removeClass('alert-info');
+        $('.alert_certify').addClass('alert-danger');
+        $('#alert_html').html('请先上传照片！');
+        $('.alert_certify').show();
+        return;
+    }
+    var canvas = document.getElementById("cardImage");
+    canvas.toBlob(function(blob) {
+        var form = new FormData();
+        // image.png 则是文件名，由于 base64 的图片信息是不带文件名的，可以手动指定一个
+        form.append('img', blob,cardFileName);
+        form.append('uid', sessionStorage.getItem('uid'));
+        $.ajax({
+            type: 'POST',
+            url:"http://www.campuslive.cn:8080/user/certification/upload" ,
+            contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
+            cache: false,
+            processData:false,  // 告诉jQuery不要去处理发送的数据
+            data: form,
+            success: function (data) {
+                console.log('上传头像 code1 = ' + data.code );
+                if(data.code == 200){
+                    alert('上传成功');
+                    console.log("上传成功");
+                    $('.alert_certify').removeClass('alert-danger');
+                    $('.alert_certify').addClass('alert-info');
+                    $('#alert_html').html('上传信息成功,等待后台认证！');
+                    $('.alert_certify').show();
+                } else if (data.code == 60545) {
+                    console.log('上传用户头像或者用户id为空');
+                } else if (data.code == 6031) {
+                    console.log('用户不存在');
+                } else if (data.code == 6056){
+                    console.log('上传学生证失败');
+                }
+                else {
+                    console.log('上传用户头像上传失败');
+                }
+            },
+            error:function (XmlHttpRequest) {
+                console.log('Update avatar ' + XmlHttpRequest.responseText);
+            }
+        });
+    });
+}
 new Vue({
     el:'#app',
     data:{
-        per_status:true,
-        list_status:false,
-        list_title:'',
         personInfo:{},
+        isInfo:true,
+        isCert:false,
         attenNum:'',
         fansNum:'',
-        listArray:[],
         admireArray:[],
         fanArray :[]
 
@@ -47,7 +133,12 @@ new Vue({
                     var num = data.ret.list.length;
                     that.admireArray = data.ret.list;
                     that.attenNum = num;
+                    for(var i = 0; i < num; i++) {
+                        that.admireArray[i].imgAvatar =  that.admireArray[i].imgAvatar || "/static/source/img/avatar.png";
+                    }
                     console.log('attenNum' + that.attenNum);
+                    console.log('atten = ');
+                    console.log(that.admireArray);
                 },
                 error: function () {
                     console.log('Get personal attention  from server Error');
@@ -66,14 +157,39 @@ new Vue({
                 success: function (data) {
                     var num = data.ret.list.length;
                     that.fanArray = data.ret.list;
+                    for(var i = 0; i < num; i++) {
+                        that.fanArray[i].imgAvatar =  that.fanArray[i].imgAvatar || "/static/source/img/avatar.png";
+                    }
                     that.fansNum =  num;
-                    console.log('fansNum' + that.fansNum);
+                    console.log('fan = ');
+                    console.log(that.fanArray);
                 },
                 error: function () {
                     console.log('Get personal fanslist  from server Error');
                 }
             });
        },
+        getCertification:function () {
+            var that = this;
+            $.ajax({
+                type:'GET',
+                contentType : 'application/json',
+                url : 'http://www.campuslive.cn:8080/user/certification/check/' + sessionStorage.getItem('uid'),
+                processData : false,
+                dataType : 'json',
+                success: function (data) {
+                   if(data.code == '200') {
+                       that.personInfo.certification = true;
+                   } else {
+                       that.personInfo.certification = false;
+                   }
+                   console.log('certification = ' +  that.personInfo.certification);
+                },
+                error: function () {
+                    console.log('Get personal fanslist  from server Error');
+                }
+            });
+        },
         getPersonInfo:function () {
             var that = this;
             if(!sessionStorage.getItem('uid')) {
@@ -102,53 +218,68 @@ new Vue({
                 }
             });
         },
-       showPersonInfo:function () {
-            console.log('showPersonInfon')
-            $('#nickname').html(this.personInfo.username);
-            if(!this.personInfo.sex) {
-                console.log('gender is unknown');
-                $('#gender').val('unknown');
-            }
-            if( this.personInfo.email) {
-                console.log('email is vaild');
-                $('#email').val( this.personInfo.email);
-            }
-            if ( this.personInfo.phone) {
-                console.log('phone is vaild');
-                $('#telephone').val( this.personInfo.phone)
-            }
-            $('#atten-num').html(this.personInfo.attenNum);
-            $('#fans-num').html( this.personInfo.fansNum);
-            $('#age').val( this.personInfo.age);
-       },
-        showAtten:function() {
-            this.per_status = false;
-            this.list_status = true;
-            this.list_title = '我的关注';
-            this.listArray = this.admireArray;
-            console.log("this.admireArray");
-            console.log(this.admireArray);
+        showCertifyPage:function () {
+            this.isInfo = false;
+            this.isCert = true;
+            var that = this;
         },
-        showFans:function() {
-           this.per_status = false;
-            this.list_status = true;
-            this.list_title = '我的粉丝';
-            this.listArray = this.fanArray;
-            console.log("this.fanArray");
-            console.log(this.fanArray);
+        goBackInfo:function () {
+            this.isCert = false;
+            this.isInfo = true;
         },
-        goBack:function () {
-            this.per_status = true;
-            this.list_status = false;
-           /* this.showPersonInfo();*/
-            console.log('admireArray');
-            console.log(this.admireArray);
-            console.log('fanArray');
-            console.log(this.fanArray);
+        updateInfo: function() {
+            var uid = sessionStorage.getItem('uid');
+            var username = $('#nickname').html();
+            var sex =  $('#gender').val();
+            var age = $('#age').val();
+            var email = $('#email').val();
+            var phone = $('#telephone').val();
+            requestdata = '{"userID" : "' + uid + '","username" : "' + username + '","sex" : "' + sex +
+                '","email" : "'+email + '","phone" : "' +
+                phone +'"}';
+            console.log('update info = ' + requestdata);
+            var that = this;
+            $.ajax({
+                type : 'POST',
+                contentType : 'application/json',
+                url : 'http://www.campuslive.cn:8080/user/info/update',
+                processData : false,
+                dataType : 'json',
+                data : requestdata,
+                success : function (data) {
+                    console.log('更改用户信息  data.code = ' + data.code);
+                    if(data.code == '200') {
+                        $('#update_success').css('display','flex');
+                        $('#update_success').html('更新个人信息成功~');
+                        setTimeout(function () {
+                            $('#update_success').html('');
+                            $('#update_success').css('display','none');
+                        },5000);
+                        that.personInfo =  requestdata;
+                        console.log("更改用户信息成功");
+                    } else if (data.code == '6033') {
+                        alert('更改用户信息失败');
+                        console.log("更改用户信息失败");
+                    }  else if (data.code ==  '6022') {
+
+                    } else if(data.code == '6021'){
+
+                    } else {
+
+                    }
+                },
+                error : function (XmlHttpRequest,textStatus, errorThrown) {
+                    console.log('Update information ' + XmlHttpRequest.responseText);
+                }
+            });
         },
+        inputCard:function () {
+            console.log('input change');
+        }
     },
     created:function(){
          this.getPersonInfo();
+         this.getCertification();
          this.getPersonAtten();
          this.getPersonFans();
     }
@@ -173,56 +304,6 @@ function  hiddenAvatarBox() {
         display:"block"
     });
     $("#avatar_box").hide();
-}
-function updateInfo() {
-    var uid = sessionStorage.getItem('uid');
-    var username = $('#nickname').html();
-    var sex =  $('#gender').val();
-    var age = $('#age').val();
-    var email = $('#email').val();
-    var phone = $('#telephone').val();
-    /*console.log('username = ' + username);
-    console.log('sex = ' +    sex);
-    console.log('age = ' +  age);
-    console.log('email = ' + email);
-    console.log('phone = ' + phone);*/
-    requestdata = '{"userID" : "' + uid + '","username" : "' + username + '","sex" : "' + sex +
-                   '","email" : "'+email + '","phone" : "' +
-                   phone +'"}';
-    console.log('update info = ' + requestdata);
-    $.ajax({
-        type : 'POST',
-        contentType : 'application/json',
-        url : 'http://www.campuslive.cn:8080/user/info/update',
-        processData : false,
-        dataType : 'json',
-        data : requestdata,
-        success : function (data) {
-            console.log('更改用户信息  data.code = ' + data.code);
-            if(data.code == '200') {
-                $('#update_success').css('display','flex');
-                $('#update_success').html('更新个人信息成功~');
-                setTimeout(function () {
-                    $('#update_success').html('');
-                    $('#update_success').css('display','none');
-                },5000);
-                console.log("更改用户信息成功");
-            } else if (data.code == '6033') {
-                alert('更改用户信息失败');
-                console.log("更改用户信息失败");
-            }  else if (data.code ==  '6022') {
-
-            } else if(data.code == '6021'){
-
-            } else {
-
-            }
-            /*window.location.href="/";*/
-        },
-        error : function (XmlHttpRequest,textStatus, errorThrown) {
-            console.log('Update information ' + XmlHttpRequest.responseText);
-        }
-    });
 }
 
 var postFile = {
